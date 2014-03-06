@@ -1775,11 +1775,7 @@
 				INFOPLIST_FILE = "DrizzleChat/DrizzleChat-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/mitbbs/Desktop/iOS\\ Projects/DrizzleChat/DrizzleChat/Libs/XMPPFramework/Vendor/facebook-ios-sdk/vendor/OCMock/Examples/iOS5Example/usr/lib",
-					"/Users/mitbbs/Desktop/iOS\\ Projects/DrizzleChat/DrizzleChat/Libs/XMPPFramework/Vendor/facebook-ios-sdk/vendor/OCMock/Examples/iPhoneExample/Libraries",
-					"/Users/mitbbs/Desktop/iOS\\ Projects/DrizzleChat/DrizzleChat/Libs/XMPPFramework/Vendor/libidn",
-					"/Users/mitbbs/Desktop/DrizzleChat/DrizzleChat-iOS/DrizzleChat/Libs/XMPPFramework/Vendor/facebook-ios-sdk/vendor/OCMock/Examples/iOS5Example/usr/lib",
-					"/Users/mitbbs/Desktop/DrizzleChat/DrizzleChat-iOS/DrizzleChat/Libs/XMPPFramework/Vendor/facebook-ios-sdk/vendor/OCMock/Examples/iPhoneExample/Libraries",
+					"/Users/mitbbs/Desktop/DrizzleChat/DrizzleChat-iOS/DrizzleChat/Libs/XMPPFramework/Vendor/libidn",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -1796,11 +1792,7 @@
 				INFOPLIST_FILE = "DrizzleChat/DrizzleChat-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/mitbbs/Desktop/iOS\\ Projects/DrizzleChat/DrizzleChat/Libs/XMPPFramework/Vendor/facebook-ios-sdk/vendor/OCMock/Examples/iOS5Example/usr/lib",
-					"/Users/mitbbs/Desktop/iOS\\ Projects/DrizzleChat/DrizzleChat/Libs/XMPPFramework/Vendor/facebook-ios-sdk/vendor/OCMock/Examples/iPhoneExample/Libraries",
-					"/Users/mitbbs/Desktop/iOS\\ Projects/DrizzleChat/DrizzleChat/Libs/XMPPFramework/Vendor/libidn",
-					"/Users/mitbbs/Desktop/DrizzleChat/DrizzleChat-iOS/DrizzleChat/Libs/XMPPFramework/Vendor/facebook-ios-sdk/vendor/OCMock/Examples/iOS5Example/usr/lib",
-					"/Users/mitbbs/Desktop/DrizzleChat/DrizzleChat-iOS/DrizzleChat/Libs/XMPPFramework/Vendor/facebook-ios-sdk/vendor/OCMock/Examples/iPhoneExample/Libraries",
+					"/Users/mitbbs/Desktop/DrizzleChat/DrizzleChat-iOS/DrizzleChat/Libs/XMPPFramework/Vendor/libidn",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
