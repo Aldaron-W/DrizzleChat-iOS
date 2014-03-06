@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>B3BE676D-D0AD-4D7A-BD8A-D66B4166F7AA</string>
+	<key>IDESourceControlProjectName</key>
+	<string>DrizzleChat</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>13CB1526-87BA-4D90-955B-FDA255F17C9E</key>
+		<string>https://github.com/DrizzleWang-Z/DrizzleChat-iOS.git</string>
+		<key>1B3A84C7-455A-44DC-821A-15095044C62A</key>
+		<string>https://github.com/DrizzleWang-Z/XMPPFramework-1.git</string>
+		<key>1CB9AA21-A46F-4D15-AE1C-5D9A30E8442E</key>
+		<string>git://github.com/erikdoe/ocmock</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>DrizzleChat.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>13CB1526-87BA-4D90-955B-FDA255F17C9E</key>
+		<string>../..</string>
+		<key>1B3A84C7-455A-44DC-821A-15095044C62A</key>
+		<string>../../DrizzleChat/Libs/XMPPFramework</string>
+		<key>1CB9AA21-A46F-4D15-AE1C-5D9A30E8442E</key>
+		<string>../../DrizzleChat/Libs/XMPPFramework/Vendor/facebook-ios-sdk/vendor/OCMock</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/DrizzleWang-Z/DrizzleChat-iOS.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>13CB1526-87BA-4D90-955B-FDA255F17C9E</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>13CB1526-87BA-4D90-955B-FDA255F17C9E</string>
+			<key>IDESourceControlWCCName</key>
+			<string>DrizzleChat-iOS</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>1CB9AA21-A46F-4D15-AE1C-5D9A30E8442E</string>
+			<key>IDESourceControlWCCName</key>
+			<string>OCMock</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>1B3A84C7-455A-44DC-821A-15095044C62A</string>
+			<key>IDESourceControlWCCName</key>
+			<string>XMPPFramework</string>
+		</dict>
+	</array>
+</dict>
+</plist>

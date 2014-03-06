@@ -613,9 +613,9 @@
 				F57B4A2618C6FAE40016D401 /* Core */,
 				F57B4A3A18C6FAE40016D401 /* Extensions */,
 				F57B4B2018C6FAE50016D401 /* README.markdown */,
-				F57B4B2118C6FAE50016D401 /* XMPPFramework.h */,
 				F57B4B2218C6FAE50016D401 /* Utilities */,
 				F57B4B2F18C6FAE50016D401 /* Vendor */,
+				F57B4B2118C6FAE50016D401 /* XMPPFramework.h */,
 			);
 			name = XMPPFramework;
 			path = Libs/XMPPFramework;
@@ -1778,6 +1778,8 @@
 					"/Users/mitbbs/Desktop/iOS\\ Projects/DrizzleChat/DrizzleChat/Libs/XMPPFramework/Vendor/facebook-ios-sdk/vendor/OCMock/Examples/iOS5Example/usr/lib",
 					"/Users/mitbbs/Desktop/iOS\\ Projects/DrizzleChat/DrizzleChat/Libs/XMPPFramework/Vendor/facebook-ios-sdk/vendor/OCMock/Examples/iPhoneExample/Libraries",
 					"/Users/mitbbs/Desktop/iOS\\ Projects/DrizzleChat/DrizzleChat/Libs/XMPPFramework/Vendor/libidn",
+					"/Users/mitbbs/Desktop/DrizzleChat/DrizzleChat-iOS/DrizzleChat/Libs/XMPPFramework/Vendor/facebook-ios-sdk/vendor/OCMock/Examples/iOS5Example/usr/lib",
+					"/Users/mitbbs/Desktop/DrizzleChat/DrizzleChat-iOS/DrizzleChat/Libs/XMPPFramework/Vendor/facebook-ios-sdk/vendor/OCMock/Examples/iPhoneExample/Libraries",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -1797,6 +1799,8 @@
 					"/Users/mitbbs/Desktop/iOS\\ Projects/DrizzleChat/DrizzleChat/Libs/XMPPFramework/Vendor/facebook-ios-sdk/vendor/OCMock/Examples/iOS5Example/usr/lib",
 					"/Users/mitbbs/Desktop/iOS\\ Projects/DrizzleChat/DrizzleChat/Libs/XMPPFramework/Vendor/facebook-ios-sdk/vendor/OCMock/Examples/iPhoneExample/Libraries",
 					"/Users/mitbbs/Desktop/iOS\\ Projects/DrizzleChat/DrizzleChat/Libs/XMPPFramework/Vendor/libidn",
+					"/Users/mitbbs/Desktop/DrizzleChat/DrizzleChat-iOS/DrizzleChat/Libs/XMPPFramework/Vendor/facebook-ios-sdk/vendor/OCMock/Examples/iOS5Example/usr/lib",
+					"/Users/mitbbs/Desktop/DrizzleChat/DrizzleChat-iOS/DrizzleChat/Libs/XMPPFramework/Vendor/facebook-ios-sdk/vendor/OCMock/Examples/iPhoneExample/Libraries",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -1864,6 +1868,7 @@
 				F57B49F318C6F8410016D401 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F57B49F418C6F8410016D401 /* Build configuration list for PBXNativeTarget "DrizzleChatTests" */ = {
 			isa = XCConfigurationList;
@@ -1872,6 +1877,7 @@
 				F57B49F618C6F8410016D401 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
