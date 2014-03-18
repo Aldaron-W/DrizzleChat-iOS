@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "XMPPFramework.h"
+#import "DWXMPP_Header.h"
 
 @interface DWLoginViewController : UIViewController{
     
@@ -16,9 +17,11 @@
 @property (strong, nonatomic) IBOutlet UILabel *labPassWord;
 @property (strong, nonatomic) IBOutlet UIButton *buttLogin;
 @property (strong, nonatomic) IBOutlet UIButton *buttRegister;
+@property (strong, nonatomic) IBOutlet UIButton *buttLogout;
 @property (strong, nonatomic) IBOutlet UITextField *textUserName;
 @property (strong, nonatomic) IBOutlet UITextField *textPassWord;
 - (IBAction)userLogin:(id)sender;
 - (IBAction)userRegister:(id)sender;
+- (IBAction)userLogout:(id)sender;
 
 @end

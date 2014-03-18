@@ -745,6 +745,11 @@ extern const NSTimeInterval XMPPStreamTimeoutNone;
  * If developing an iOS app that runs in the background, this may be a good place to indicate
  * that this is a task that needs to continue running in the background.
 **/
+/**
+ *  这个函数会在stream连接之前被调用
+ *
+ *  @param sender 将要连接的XMPPStream
+ */
 - (void)xmppStreamWillConnect:(XMPPStream *)sender;
 
 /**

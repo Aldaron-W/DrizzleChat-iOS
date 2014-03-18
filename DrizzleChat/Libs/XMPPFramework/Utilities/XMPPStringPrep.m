@@ -4,6 +4,13 @@
 
 @implementation XMPPStringPrep
 
+/**
+ *  将传入的用户名转化为UTF-8编码的字符串
+ *
+ *  @param node 用户名
+ *
+ *  @return UTF-8编码的用户名
+ */
 + (NSString *)prepNode:(NSString *)node
 {
 	if(node == nil) return nil;
@@ -19,6 +26,13 @@
 	return [NSString stringWithUTF8String:buf];
 }
 
+/**
+ *  将传入的domain转化为UTF-8编码的字符串
+ *
+ *  @param domain domain
+ *
+ *  @return UTF-8编码的domain
+ */
 + (NSString *)prepDomain:(NSString *)domain
 {
 	if(domain == nil) return nil;
@@ -34,6 +48,13 @@
 	return [NSString stringWithUTF8String:buf];
 }
 
+/**
+ *  将传入的resource转化为UTF-8编码的字符串
+ *
+ *  @param resource resource名
+ *
+ *  @return UTF-8编码的resource
+ */
 + (NSString *)prepResource:(NSString *)resource
 {
 	if(resource == nil) return nil;

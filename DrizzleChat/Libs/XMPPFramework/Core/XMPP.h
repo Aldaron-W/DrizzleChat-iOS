@@ -27,3 +27,17 @@
 // 
 
 #import "NSXMLElement+XMPP.h"
+
+//
+//  Roster
+//
+
+#import "XMPPRoster.h"
+#import "XMPPRosterMemoryStorage.h"
+#import "XMPPRosterCoreDataStorage.h"
+
+//
+// Logging
+//
+#import "DDLog.h"
+#import "DDTTYLogger.h"

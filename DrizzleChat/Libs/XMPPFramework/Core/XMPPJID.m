@@ -8,6 +8,18 @@
 
 @implementation XMPPJID
 
+/**
+ *  判断domain的格式是否符合命名规则
+ *
+ *  @abstract 判断规则：
+ *  @abstract 1.domain != nil
+ *  @abstract 2.domain的长度大于0
+ *  @abstract 3.domain中必须包含"@"字符
+ *
+ *  @param domain 需要被检测的domain
+ *
+ *  @return 是否符合命名规则
+ */
 + (BOOL)validateDomain:(NSString *)domain
 {
 	// Domain is the only required part of a JID
@@ -22,6 +34,18 @@
 	return YES;
 }
 
+
+/**
+ *  判断resource的格式是否符合命名规则
+ *
+ *  @abstract 判断规则：
+ *  @abstract 1.resource != nil
+ *  @abstract 2.resource的长度大于0
+ *
+ *  @param resource 需要被检测的resource
+ *
+ *  @return 是否符合命名规则
+ */
 + (BOOL)validateResource:(NSString *)resource
 {
 	// Can't use an empty string resource name
@@ -31,6 +55,15 @@
 	return YES;
 }
 
+/**
+ *  判断用户信息是否符合命名规则(wang@drizzle.com/DrizzleChat39349)
+ *
+ *  @param user     用户名     wang
+ *  @param domain   domain    @drizzle.com
+ *  @param resource resource  DrizzleChat39349
+ *
+ *  @return 是否符合命名规则
+ */
 + (BOOL)validateUser:(NSString *)user domain:(NSString *)domain resource:(NSString *)resource
 {
 	if (![self validateDomain:domain])
@@ -42,6 +75,16 @@
 	return YES;
 }
 
+/**
+ *  根据传入的jidStr解析出来userName、domain和resource
+ *
+ *  @param jidStr   用户的JID
+ *  @param user     获取用户名的指针
+ *  @param domain   获取domain的指针
+ *  @param resource 获取resource的指针
+ *
+ *  @return 返回JID是否符合命名规则
+ */
 + (BOOL)parse:(NSString *)jidStr
 	  outUser:(NSString **)user
 	outDomain:(NSString **)domain
@@ -108,6 +151,13 @@
 	return NO;
 }
 
+/**
+ *  根据传入的JID字符串解析用户名、domain和resource
+ *
+ *  @param jidStr JID字符串
+ *
+ *  @return 生成的XMPPJID对象
+ */
 + (XMPPJID *)jidWithString:(NSString *)jidStr
 {
 	NSString *user;
@@ -127,6 +177,14 @@
 	return nil;
 }
 
+/**
+ *  根据传入的JID字符串解析用户名、domain 再为JID赋值新的resource
+ *
+ *  @param jidStr   JID字符串
+ *  @param resource resource
+ *
+ *  @return 生成的XMPPJID对象
+ */
 + (XMPPJID *)jidWithString:(NSString *)jidStr resource:(NSString *)resource
 {
 	NSString *prepResource = [XMPPStringPrep prepResource:resource];
@@ -148,6 +206,15 @@
 	return nil;
 }
 
+/**
+ *  根据传入的用户名、domain和resource生成新的XMPPJID对象
+ *
+ *  @param user     用户名
+ *  @param domain   domain
+ *  @param resource resource
+ *
+ *  @return 生成的XMPPJID对象
+ */
 + (XMPPJID *)jidWithUser:(NSString *)user domain:(NSString *)domain resource:(NSString *)resource
 {
 	NSString *prepUser = [XMPPStringPrep prepNode:user];
@@ -167,6 +234,15 @@
 	return nil;
 }
 
+/**
+ *  根据已经转为UTF-8的用户名、domain和resource生成新的XMPPJID对象
+ *
+ *  @param user     用户名(UTF-8)
+ *  @param domain   domain(UTF-8)
+ *  @param resource resource(UTF-8)
+ *
+ *  @return 生成的XMPPJID对象
+ */
 + (XMPPJID *)jidWithPrevalidatedUser:(NSString *)user
                   prevalidatedDomain:(NSString *)domain
                 prevalidatedResource:(NSString *)resource
@@ -179,6 +255,15 @@
 	return jid;
 }
 
+/**
+ *  根据已经转为UTF-8的用户名、domain和未被转换的resource字符串生成新的XMPPJID对象
+ *
+ *  @param user     用户名(UTF-8)
+ *  @param domain   domain(UTF-8)
+ *  @param resource resource
+ *
+ *  @return 生成的XMPPJID对象
+ */
 + (XMPPJID *)jidWithPrevalidatedUser:(NSString *)user
                   prevalidatedDomain:(NSString *)domain
                             resource:(NSString *)resource
@@ -306,6 +391,11 @@
 	}
 }
 
+/**
+ *  获取不包含resource的JID
+ *
+ *  @return 不包含resource的JID字符串
+ */
 - (NSString *)bare
 {
 	if (user)
@@ -314,6 +404,11 @@
 		return domain;
 }
 
+/**
+ *  获取全部的JID
+ *
+ *  @return 当前已经被赋值的用户名、domain和resource的JID字符串
+ */
 - (NSString *)full
 {
 	if (user)
@@ -332,6 +427,11 @@
 	}
 }
 
+/**
+ *  判断是否不包含resource
+ *
+ *  @return 判断是否不包含resource
+ */
 - (BOOL)isBare
 {
 	// From RFC 6120 Terminology:
@@ -342,11 +442,21 @@
 	return (resource == nil);
 }
 
+/**
+ *  判断是否包含用户名 并不包含resource
+ *
+ *  @return 判断是否包含用户名 并不包含resource
+ */
 - (BOOL)isBareWithUser
 {
 	return (user != nil && resource == nil);
 }
 
+/**
+ *  判断是否包含resource
+ *
+ *  @return 判断是否包含resource
+ */
 - (BOOL)isFull
 {
 	// From RFC 6120 Terminology:
@@ -368,6 +478,13 @@
 	return (user == nil);
 }
 
+/**
+ *  为当前的JID改变新的resource
+ *
+ *  @param newResource 新的resource
+ *
+ *  @return 修改后的JID
+ */
 - (XMPPJID *)jidWithNewResource:(NSString *)newResource
 {
 	return [XMPPJID jidWithPrevalidatedUser:user prevalidatedDomain:domain resource:newResource];

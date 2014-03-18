@@ -13,6 +13,7 @@
 }
 
 @property (nonatomic, strong) XMPPStream *xmppStream;
+@property (nonatomic, strong) DWXMPP_Core *dwXMPP;
 
 @end
 
@@ -44,25 +45,9 @@
     NSString *userName = [self.textUserName text];
     NSString *passWord = [self.textPassWord text];
     
-    int r = arc4random() % 99999;
-    NSString * resource = [NSString stringWithFormat:@"%@%d",@"DrizzleChat",r];
-//    [self.xmppStream setMyJID:[XMPPJID jidWithString:userName resource:resource]];
-    [self.xmppStream setMyJID:[XMPPJID jidWithString:userName]];
-//	password = myPassword;
+    self.dwXMPP = [[DWXMPP_Core alloc] initWithUserName:userName andPassWord:passWord];
     
-    NSError *error = nil;
-	if (![self.xmppStream connectWithTimeout:XMPPStreamTimeoutNone error:&error])
-	{
-		UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error connecting"
-		                                                    message:@"See console for error details."
-		                                                   delegate:nil
-		                                          cancelButtonTitle:@"Ok"
-		                                          otherButtonTitles:nil];
-		[alertView show];
-        
-        
-//		return NO;
-	}
+    [self.dwXMPP login];
 }
 
 - (IBAction)userRegister:(id)sender {
@@ -88,6 +73,10 @@
         
         //		return NO;
 	}
+}
+
+- (IBAction)userLogout:(id)sender {
+    [self.dwXMPP logout];
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
