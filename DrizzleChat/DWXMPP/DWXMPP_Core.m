@@ -26,6 +26,18 @@
 @end
 
 @implementation DWXMPP_Core
+#pragma mark - Singleton
++ (DWXMPP_Core *)sharedManager
+{
+    static DWXMPP_Core *sharedDWXMPPCoreInstance = nil;
+    static dispatch_once_t predicate;
+    dispatch_once(&predicate, ^{
+        if (!sharedDWXMPPCoreInstance) {
+            sharedDWXMPPCoreInstance = [[self alloc] init];
+        }
+    });
+    return sharedDWXMPPCoreInstance;
+}
 
 #pragma mark - Initialization
 - (instancetype) initWithUserName:(NSString *)userName andPassWord:(NSString *)passWord{
@@ -40,12 +52,22 @@
 }
 
 #pragma mark - Login
+- (void)loginWithUserName:(NSString *)userName andPassWord:(NSString *)passWord{
+    if (userName && passWord) {
+        self.userName = userName;
+        self.passWord = passWord;
+        
+        [self login];
+    }
+}
+
 - (void)login{
     [self.xmppStream setMyJID:[XMPPJID jidWithString:self.userName resource:self.resource]];
     
     NSError *error = nil;
 	if (![self.xmppStream connectWithTimeout:XMPPStreamTimeoutNone error:&error]){
-		[self showAlertWithTitle:@"Error connecting" andMessage:@"See console for error details."];
+        /** DWXMPP连接服务器失败的Notification */
+        [[NSNotificationCenter defaultCenter] postNotificationName:DWXMPP_NOTIFICATION_CONNECT_FAULT object:error];
 	}
 }
 
@@ -83,6 +105,8 @@
 #pragma mark Connect（连接服务器）
 - (void)xmppStreamWillConnect:(XMPPStream *)sender{
     NSLog(@"\n\tStream将要连接服务器 \n\t服务器：%@ \n\t端口号：%d", sender.hostName, sender.hostPort);
+    /** DWXMPP将要连接服务器的Notification */
+    [[NSNotificationCenter defaultCenter] postNotificationName:DWXMPP_NOTIFICATION_WILL_CONNECT object:self.xmppStream];
 }
 
 - (void)xmppStream:(XMPPStream *)sender socketDidConnect:(GCDAsyncSocket *)socket{
@@ -92,20 +116,33 @@
 - (void)xmppStreamDidConnect:(XMPPStream *)sender{
     NSLog(@"\n\tStream连接服务器成功 \n\t服务器：%@ \n\t端口号：%d", sender.hostName, sender.hostPort);
     NSError *error = nil;
+    /** DWXMPP已经连接到服务器的Notification */
+    [[NSNotificationCenter defaultCenter] postNotificationName:DWXMPP_NOTIFICATION_CONNECT_SUCCEED object:self.xmppStream];
+    
 	if (![[self xmppStream] authenticateWithPassword:self.passWord error:&error])
 	{
         [self showAlertWithTitle:@"Error authenticating" andMessage:@"验证密码失败"];
+        /** DWXMPP验证密码失败的Notification */
+        [[NSNotificationCenter defaultCenter] postNotificationName:DWXMPP_NOTIFICATION_AUTNENTICATE_FAULT object:error];
 	}
+    else{
+        /** DWXMPP将要验证密码的Notification */
+        [[NSNotificationCenter defaultCenter] postNotificationName:DWXMPP_NOTIFICATION_WILL_AUTNENTICATE object:self.xmppStream];
+    }
 }
 
 #pragma mark Authenticate（密码鉴定）
 - (void)xmppStreamDidAuthenticate:(XMPPStream *)sender{
     NSLog(@"\n\tStream验证密码成功");
+    /** DWXMPP验证密码成功的Notification */
+    [[NSNotificationCenter defaultCenter] postNotificationName:DWXMPP_NOTIFICATION_AUTNENTICATE_SUCCEED object:self.xmppStream];
     [self goOnline];
 }
 
 - (void)xmppStream:(XMPPStream *)sender didNotAuthenticate:(NSXMLElement *)error{
     NSLog(@"\n\tStream验证密码错误 错误：%@", error);
+    /** DWXMPP验证密码失败的Notification */
+    [[NSNotificationCenter defaultCenter] postNotificationName:DWXMPP_NOTIFICATION_AUTNENTICATE_FAULT object:error];
 }
 
 #pragma mark GetPresence

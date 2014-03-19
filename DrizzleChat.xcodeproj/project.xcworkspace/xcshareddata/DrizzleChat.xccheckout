@@ -16,6 +16,8 @@
 		<string>https://github.com/DrizzleWang-Z/XMPPFramework-1.git</string>
 		<key>1CB9AA21-A46F-4D15-AE1C-5D9A30E8442E</key>
 		<string>git://github.com/erikdoe/ocmock</string>
+		<key>39C8092F-942D-45BB-BEBB-7E3FD00A6B5E</key>
+		<string>https://github.com/DrizzleWang-Z/MBProgressHUD.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>DrizzleChat.xcodeproj/project.xcworkspace</string>
@@ -27,9 +29,11 @@
 		<string>../../DrizzleChat/Libs/XMPPFramework</string>
 		<key>1CB9AA21-A46F-4D15-AE1C-5D9A30E8442E</key>
 		<string>../../DrizzleChat/Libs/XMPPFramework/Vendor/facebook-ios-sdk/vendor/OCMock</string>
+		<key>39C8092F-942D-45BB-BEBB-7E3FD00A6B5E</key>
+		<string>../../DrizzleChat/MBProgressHUD</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/DrizzleWang-Z/DrizzleChat-iOS.git</string>
+	<string>file:///Users/mitbbs/%E7%99%BE%E5%BA%A6%E4%BA%91%E5%90%8C%E6%AD%A5%E7%9B%98/Development/Drizzle%20Projects/XMPP/DrizzleChat-iOS/DrizzleChat.xcodeproj/project.xcworkspace/</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
@@ -43,6 +47,14 @@
 			<string>13CB1526-87BA-4D90-955B-FDA255F17C9E</string>
 			<key>IDESourceControlWCCName</key>
 			<string>DrizzleChat-iOS</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>39C8092F-942D-45BB-BEBB-7E3FD00A6B5E</string>
+			<key>IDESourceControlWCCName</key>
+			<string>MBProgressHUD</string>
 		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>

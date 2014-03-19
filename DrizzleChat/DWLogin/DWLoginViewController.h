@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "XMPPFramework.h"
 #import "DWXMPP_Header.h"
+#import "MBProgressHUD.h"
 
-@interface DWLoginViewController : UIViewController{
+@interface DWLoginViewController : UIViewController<MBProgressHUDDelegate>{
     
 }
 @property (strong, nonatomic) IBOutlet UILabel *labUserName;

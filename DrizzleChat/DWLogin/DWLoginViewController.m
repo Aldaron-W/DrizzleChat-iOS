@@ -8,13 +8,9 @@
 
 #import "DWLoginViewController.h"
 
-@interface DWLoginViewController (){
-    BOOL allowSelfSignedCertificates;
-}
+@interface DWLoginViewController ()
 
-@property (nonatomic, strong) XMPPStream *xmppStream;
-@property (nonatomic, strong) DWXMPP_Core *dwXMPP;
-
+@property (nonatomic, strong) MBProgressHUD *mbpHUD;
 @end
 
 @implementation DWLoginViewController
@@ -32,6 +28,10 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didLogin:) name:DWXMPP_NOTIFICATION_WILL_CONNECT object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didLogin:) name:DWXMPP_NOTIFICATION_AUTNENTICATE_SUCCEED object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didNotLogin:) name:DWXMPP_NOTIFICATION_CONNECT_FAULT object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didNotLogin:) name:DWXMPP_NOTIFICATION_AUTNENTICATE_FAULT object:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -40,171 +40,74 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:DWXMPP_NOTIFICATION_WILL_CONNECT object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:DWXMPP_NOTIFICATION_AUTNENTICATE_SUCCEED object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:DWXMPP_NOTIFICATION_CONNECT_FAULT object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:DWXMPP_NOTIFICATION_AUTNENTICATE_FAULT object:nil];
+}
+
+#pragma mark - Login
 - (IBAction)userLogin:(id)sender {
-    
     NSString *userName = [self.textUserName text];
     NSString *passWord = [self.textPassWord text];
     
-    self.dwXMPP = [[DWXMPP_Core alloc] initWithUserName:userName andPassWord:passWord];
-    
-    [self.dwXMPP login];
+    [[DWXMPP_Core sharedManager] loginWithUserName:userName andPassWord:passWord];
 }
 
-- (IBAction)userRegister:(id)sender {
-    NSString *userName = [self.textUserName text];
-    NSString *passWord = [self.textPassWord text];
+- (void)didLogin:(NSNotification *)notification{
+    NSString *strNotification = notification.name;
     
-    int r = arc4random() % 99999;
-    NSString * resource = [NSString stringWithFormat:@"%@%d",@"DrizzleChat",r];
-    //    [self.xmppStream setMyJID:[XMPPJID jidWithString:userName resource:resource]];
-    [self.xmppStream setMyJID:[XMPPJID jidWithString:userName]];
-    //	password = myPassword;
-    
-    NSError *error = nil;
-	if (![self.xmppStream connectWithTimeout:XMPPStreamTimeoutNone error:&error])
-	{
-		UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error connecting"
-		                                                    message:@"See console for error details."
-		                                                   delegate:nil
-		                                          cancelButtonTitle:@"Ok"
-		                                          otherButtonTitles:nil];
-		[alertView show];
+    if ([strNotification isEqualToString:DWXMPP_NOTIFICATION_WILL_CONNECT]) {
+        MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.view];
+        HUD.labelText = @"正在连接服务器";
+        HUD.removeFromSuperViewOnHide = YES;
+        [self.view addSubview:HUD];
+        [HUD show:YES];
+    }
+    else if ([strNotification isEqualToString:DWXMPP_NOTIFICATION_AUTNENTICATE_SUCCEED]){
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
         
-        
-        //		return NO;
-	}
+        MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.view];
+        HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"37x-Checkmark.png"]];
+        HUD.mode = MBProgressHUDModeCustomView;
+        HUD.labelText = @"登陆成功";
+        HUD.removeFromSuperViewOnHide = YES;
+        [self.view addSubview:HUD];
+        [HUD show:YES];
+        [HUD hide:YES afterDelay:1.0];
+    }
 }
 
+- (void)didNotLogin:(NSNotification *)notification{
+    NSString *strNotification = notification.name;
+    
+    if ([strNotification isEqualToString:DWXMPP_NOTIFICATION_CONNECT_FAULT]) {
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+        
+        MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.view];
+        HUD.mode = MBProgressHUDModeText;
+        HUD.detailsLabelText = @"连接服务器失败\n请稍后再试";
+        HUD.removeFromSuperViewOnHide = YES;
+        [self.view addSubview:HUD];
+        [HUD show:YES];
+        [HUD hide:YES afterDelay:2];
+    }
+    else if([strNotification isEqualToString:DWXMPP_NOTIFICATION_AUTNENTICATE_FAULT]){
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+        
+        MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.view];
+        HUD.mode = MBProgressHUDModeText;
+        HUD.detailsLabelText = @"用户名或密码输入错误\n请重新输入";
+        HUD.removeFromSuperViewOnHide = YES;
+        [self.view addSubview:HUD];
+        [HUD show:YES];
+        [HUD hide:YES afterDelay:2];
+    }
+}
+
+#pragma mark - Logout
 - (IBAction)userLogout:(id)sender {
-    [self.dwXMPP logout];
-}
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#pragma mark XMPPStream Delegate
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-- (void)xmppStream:(XMPPStream *)sender socketDidConnect:(GCDAsyncSocket *)socket
-{
-//	DDLogVerbose(@"%@: %@", THIS_FILE, THIS_METHOD);
-}
-
-- (void)xmppStream:(XMPPStream *)sender willSecureWithSettings:(NSMutableDictionary *)settings
-{
-//	DDLogVerbose(@"%@: %@", THIS_FILE, THIS_METHOD);
-	
-}
-
-- (void)xmppStreamDidSecure:(XMPPStream *)sender
-{
-//	DDLogVerbose(@"%@: %@", THIS_FILE, THIS_METHOD);
-}
-
-- (void)xmppStreamDidConnect:(XMPPStream *)sender
-{
-//	DDLogVerbose(@"%@: %@", THIS_FILE, THIS_METHOD);
-	NSError *error = nil;
-//	if (![[self xmppStream] authenticateWithPassword:self.textPassWord.text error:&error])
-//	{
-//        
-//    }
-    
-    if (![[self xmppStream] registerWithPassword:self.textPassWord.text error:&error]){
-        
-    }
-}
-
-- (void)xmppStreamDidAuthenticate:(XMPPStream *)sender
-{
-	[self goOnline];
-}
-
-- (void)xmppStream:(XMPPStream *)sender didNotAuthenticate:(NSXMLElement *)error
-{
-    
-}
-
-- (BOOL)xmppStream:(XMPPStream *)sender didReceiveIQ:(XMPPIQ *)iq
-{
-	
-	return NO;
-}
-
-- (void)xmppStream:(XMPPStream *)sender didReceiveMessage:(XMPPMessage *)message
-{
-    
-	// A simple example of inbound message handling.
-    
-}
-
-- (void)xmppStream:(XMPPStream *)sender didReceivePresence:(XMPPPresence *)presence
-{
-//	DDLogVerbose(@"%@: %@ - %@", THIS_FILE, THIS_METHOD, [presence fromStr]);
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Connected Succeed"
-                                                        message:[presence show]
-                                                       delegate:nil
-                                              cancelButtonTitle:@"Ok"
-                                              otherButtonTitles:nil];
-    [alertView show];
-}
-
-- (void)xmppStream:(XMPPStream *)sender didReceiveError:(id)error
-{
-//	DDLogVerbose(@"%@: %@", THIS_FILE, THIS_METHOD);
-}
-
-- (void)xmppStreamDidDisconnect:(XMPPStream *)sender withError:(NSError *)error
-{
-//	DDLogVerbose(@"%@: %@", THIS_FILE, THIS_METHOD);
-	
-}
-
-/**
- * This method is called after registration of a new user has successfully finished.
- * If registration fails for some reason, the xmppStream:didNotRegister: method will be called instead.
- **/
-- (void)xmppStreamDidRegister:(XMPPStream *)sender{
-    
-}
-
-/**
- * This method is called if registration fails.
- **/
-- (void)xmppStream:(XMPPStream *)sender didNotRegister:(NSXMLElement *)error{
-    
-}
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-- (void)goOnline
-{
-	XMPPPresence *presence = [XMPPPresence presence]; // type="available" is implicit
-    
-    NSString *domain = [self.xmppStream.myJID domain];
-    
-    //Google set their presence priority to 24, so we do the same to be compatible.
-    
-    if([domain isEqualToString:@"gmail.com"]
-       || [domain isEqualToString:@"gtalk.com"]
-       || [domain isEqualToString:@"talk.google.com"])
-    {
-        NSXMLElement *priority = [NSXMLElement elementWithName:@"priority" stringValue:@"24"];
-        [presence addChild:priority];
-    }
-	
-	[[self xmppStream] sendElement:presence];
-}
-
-#pragma mark - Getter
-#pragma mark XMPP
-- (XMPPStream *)xmppStream{
-    if (!_xmppStream) {
-        _xmppStream = [[XMPPStream alloc] init];
-        
-        [_xmppStream addDelegate:self delegateQueue:dispatch_get_main_queue()];
-        [_xmppStream setHostName:@"115.28.228.212"];
-        [_xmppStream setHostPort:5222];
-    }
-    
-    return _xmppStream;
+    [[DWXMPP_Core sharedManager] logout];
 }
 @end

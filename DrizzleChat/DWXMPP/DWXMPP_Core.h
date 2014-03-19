@@ -19,11 +19,14 @@ typedef NS_ENUM(NSInteger, XMPPMessageType) {
 
 @interface DWXMPP_Core : NSObject<XMPPStreamDelegate, XMPPRosterDelegate>
 
+#pragma mark - Singleton
++ (DWXMPP_Core *)sharedManager;
+
 #pragma mark - Initialization
 - (instancetype) initWithUserName:(NSString *)userName andPassWord:(NSString *)passWord;
 
 #pragma mark - Login
-- (void)login;
+- (void)loginWithUserName:(NSString *)userName andPassWord:(NSString *)passWord;
 
 #pragma mark - Logout
 - (void)logout;

@@ -154,6 +154,10 @@
 		F57B554818C707280016D401 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F57B554218C701FC0016D401 /* libxml2.dylib */; };
 		F57B554A18C7080A0016D401 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F57B554918C7080A0016D401 /* Security.framework */; };
 		F588E76618D7E4EF00074277 /* DWXMPP_Friends.m in Sources */ = {isa = PBXBuildFile; fileRef = F588E76518D7E4EF00074277 /* DWXMPP_Friends.m */; };
+		F5A1858C18D965B700F13681 /* build-libidn.sh in Resources */ = {isa = PBXBuildFile; fileRef = F5A1858818D965B700F13681 /* build-libidn.sh */; };
+		F5A1858D18D965B700F13681 /* libidn.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F5A1858A18D965B700F13681 /* libidn.a */; };
+		F5A1859018D9676B00F13681 /* DWFriendListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5A1858F18D9676B00F13681 /* DWFriendListViewController.m */; };
+		F5A1862018D97BB900F13681 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = F5A1860618D97BB900F13681 /* MBProgressHUD.m */; };
 		F5FDA5A918D2FDD600658E7D /* DWXMPP_Core.m in Sources */ = {isa = PBXBuildFile; fileRef = F5FDA5A818D2FDD600658E7D /* DWXMPP_Core.m */; };
 /* End PBXBuildFile section */
 
@@ -459,6 +463,14 @@
 		F57B554918C7080A0016D401 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		F588E76418D7E4EF00074277 /* DWXMPP_Friends.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWXMPP_Friends.h; path = DWXMPP/DWXMPP_Friends.h; sourceTree = "<group>"; };
 		F588E76518D7E4EF00074277 /* DWXMPP_Friends.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWXMPP_Friends.m; path = DWXMPP/DWXMPP_Friends.m; sourceTree = "<group>"; };
+		F5A1858818D965B700F13681 /* build-libidn.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "build-libidn.sh"; sourceTree = "<group>"; };
+		F5A1858918D965B700F13681 /* idn-int.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "idn-int.h"; sourceTree = "<group>"; };
+		F5A1858A18D965B700F13681 /* libidn.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libidn.a; sourceTree = "<group>"; };
+		F5A1858B18D965B700F13681 /* stringprep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stringprep.h; sourceTree = "<group>"; };
+		F5A1858E18D9676B00F13681 /* DWFriendListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWFriendListViewController.h; path = DWXMPPViews/DWFriendListViewController.h; sourceTree = "<group>"; };
+		F5A1858F18D9676B00F13681 /* DWFriendListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWFriendListViewController.m; path = DWXMPPViews/DWFriendListViewController.m; sourceTree = "<group>"; };
+		F5A1860518D97BB900F13681 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		F5A1860618D97BB900F13681 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		F5FDA5A718D2FDD600658E7D /* DWXMPP_Core.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWXMPP_Core.h; path = DWXMPP/DWXMPP_Core.h; sourceTree = "<group>"; };
 		F5FDA5A818D2FDD600658E7D /* DWXMPP_Core.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWXMPP_Core.m; path = DWXMPP/DWXMPP_Core.m; sourceTree = "<group>"; };
 		F5FDA5AA18D2FF3600658E7D /* DWXMPP_Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DWXMPP_Header.h; path = DWXMPP/DWXMPP_Header.h; sourceTree = "<group>"; };
@@ -470,6 +482,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F57B554A18C7080A0016D401 /* Security.framework in Frameworks */,
+				F5A1858D18D965B700F13681 /* libidn.a in Frameworks */,
 				F57B554818C707280016D401 /* libxml2.dylib in Frameworks */,
 				F57B554518C702420016D401 /* libresolv.dylib in Frameworks */,
 				F57B49C518C6F8400016D401 /* CoreGraphics.framework in Frameworks */,
@@ -529,8 +542,8 @@
 		F57B49C818C6F8400016D401 /* DrizzleChat */ = {
 			isa = PBXGroup;
 			children = (
+				F5A1859118D9677200F13681 /* DWXMPPViews */,
 				F5FDA5A318D2FD7400658E7D /* DWXMPP */,
-				F57B49F818C6F9C90016D401 /* DWLogin */,
 				F57B49D118C6F8400016D401 /* AppDelegate.h */,
 				F57B49D218C6F8400016D401 /* AppDelegate.m */,
 				F57B49D418C6F8410016D401 /* Main.storyboard */,
@@ -574,19 +587,11 @@
 		F57B49F718C6F8550016D401 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				F5A185E418D97BB900F13681 /* MBProgressHUD */,
 				F57B4A0318C6FAE40016D401 /* XMPPFramework */,
 			);
 			name = Libs;
 			path = DrizzleChat;
-			sourceTree = "<group>";
-		};
-		F57B49F818C6F9C90016D401 /* DWLogin */ = {
-			isa = PBXGroup;
-			children = (
-				F57B49FE18C6FA210016D401 /* DWLoginViewController.h */,
-				F57B49FF18C6FA210016D401 /* DWLoginViewController.m */,
-			);
-			name = DWLogin;
 			sourceTree = "<group>";
 		};
 		F57B4A0318C6FAE40016D401 /* XMPPFramework */ = {
@@ -1283,6 +1288,7 @@
 		F57B4B2F18C6FAE50016D401 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				F5A1858718D965B700F13681 /* libidn */,
 				F57B552A18C700F80016D401 /* KissXML */,
 				F57B4B3018C6FAE50016D401 /* CocoaAsyncSocket */,
 				F57B4B3318C6FAE50016D401 /* CocoaLumberjack */,
@@ -1372,6 +1378,38 @@
 				F57B553618C700F80016D401 /* DDXMLPrivate.h */,
 			);
 			path = Private;
+			sourceTree = "<group>";
+		};
+		F5A1858718D965B700F13681 /* libidn */ = {
+			isa = PBXGroup;
+			children = (
+				F5A1858818D965B700F13681 /* build-libidn.sh */,
+				F5A1858918D965B700F13681 /* idn-int.h */,
+				F5A1858A18D965B700F13681 /* libidn.a */,
+				F5A1858B18D965B700F13681 /* stringprep.h */,
+			);
+			path = libidn;
+			sourceTree = "<group>";
+		};
+		F5A1859118D9677200F13681 /* DWXMPPViews */ = {
+			isa = PBXGroup;
+			children = (
+				F57B49FE18C6FA210016D401 /* DWLoginViewController.h */,
+				F57B49FF18C6FA210016D401 /* DWLoginViewController.m */,
+				F5A1858E18D9676B00F13681 /* DWFriendListViewController.h */,
+				F5A1858F18D9676B00F13681 /* DWFriendListViewController.m */,
+			);
+			name = DWXMPPViews;
+			sourceTree = "<group>";
+		};
+		F5A185E418D97BB900F13681 /* MBProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				F5A1860518D97BB900F13681 /* MBProgressHUD.h */,
+				F5A1860618D97BB900F13681 /* MBProgressHUD.m */,
+			);
+			name = MBProgressHUD;
+			path = Libs/MBProgressHUD;
 			sourceTree = "<group>";
 		};
 		F5FDA5A318D2FD7400658E7D /* DWXMPP */ = {
@@ -1465,6 +1503,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F57B49DB18C6F8410016D401 /* Images.xcassets in Resources */,
+				F5A1858C18D965B700F13681 /* build-libidn.sh in Resources */,
 				F57B51A918C6FAF80016D401 /* README.txt in Resources */,
 				F57B53CE18C6FAF90016D401 /* build-libidn.sh in Resources */,
 				F57B49CD18C6F8400016D401 /* InfoPlist.strings in Resources */,
@@ -1494,6 +1533,7 @@
 				F57B4A0118C6FA210016D401 /* DWLoginViewController.m in Sources */,
 				F57B51A818C6FAF80016D401 /* DispatchQueueLogFormatter.m in Sources */,
 				F57B518018C6FAF80016D401 /* XMPPCapsCoreDataStorageObject.m in Sources */,
+				F5A1862018D97BB900F13681 /* MBProgressHUD.m in Sources */,
 				F57B519F18C6FAF80016D401 /* XMPPSRVResolver.m in Sources */,
 				F57B518D18C6FAF80016D401 /* XMPPBlocking.m in Sources */,
 				F57B553F18C700F80016D401 /* DDXMLNode.m in Sources */,
@@ -1616,6 +1656,7 @@
 				F57B512F18C6FAF80016D401 /* XMPPDeprecatedDigestAuthentication.m in Sources */,
 				F57B518618C6FAF80016D401 /* XMPPMessageArchivingCoreDataStorage.m in Sources */,
 				F57B517818C6FAF80016D401 /* NSDate+XMPPDateTimeProfiles.m in Sources */,
+				F5A1859018D9676B00F13681 /* DWFriendListViewController.m in Sources */,
 				F57B517418C6FAF80016D401 /* XMPPPubSub.m in Sources */,
 				F57B519E18C6FAF80016D401 /* XMPPIDTracker.m in Sources */,
 			);
@@ -1754,6 +1795,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"/Users/mitbbs/Desktop/DrizzleChat/DrizzleChat-iOS/DrizzleChat/Libs/XMPPFramework/Vendor/libidn",
+					"/Users/mitbbs/百度云同步盘/Development/Drizzle\\ Projects/XMPP/DrizzleChat-iOS/DrizzleChat/Libs/XMPPFramework/Vendor/libidn",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -1771,6 +1813,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"/Users/mitbbs/Desktop/DrizzleChat/DrizzleChat-iOS/DrizzleChat/Libs/XMPPFramework/Vendor/libidn",
+					"/Users/mitbbs/百度云同步盘/Development/Drizzle\\ Projects/XMPP/DrizzleChat-iOS/DrizzleChat/Libs/XMPPFramework/Vendor/libidn",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;

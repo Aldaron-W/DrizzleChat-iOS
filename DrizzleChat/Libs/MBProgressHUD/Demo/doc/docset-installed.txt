@@ -1,0 +1,4 @@
+Documentation set was installed to Xcode!
+
+Path: /Users/mitbbs/Library/Developer/Shared/Documentation/DocSets/com.drizzle.mbprogresshud.MBProgressHUD.docset
+Time: 2014-02-17 06:12:14 +0000
