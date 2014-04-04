@@ -64,6 +64,30 @@
     return self;
 }
 
+- (BOOL)initUserDataWithUserName:(NSString *)userName andPassWord:(NSString *)passWord{
+    if (userName && passWord) {
+        self.userName = userName;
+        self.passWord = passWord;
+    }
+    else{
+        return NO;
+    }
+    return YES;
+}
+
+- (BOOL)initXMPPFramework{
+    //XMPP_Core
+    if (!self.xmppStream) {
+        return NO;
+    }
+    //XMPP_Reconnect
+    if (!self.xmppReconnect) {
+        return NO;
+    }
+    
+    return YES;
+}
+
 #pragma mark - Delloc
 - (void)dealloc{
     //XMPP_Core
