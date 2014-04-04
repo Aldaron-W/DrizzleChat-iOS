@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DWXMPPViews/DWLoginViewController.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 

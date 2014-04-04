@@ -76,6 +76,10 @@
         [self.view addSubview:HUD];
         [HUD show:YES];
         [HUD hide:YES afterDelay:1.0];
+        
+        DWFriendListViewController *friendListView = [[DWFriendListViewController alloc] initWithStyle:UITableViewStyleGrouped];
+        [self presentViewController:friendListView animated:NO completion:nil];
+//        [self.navigationController pushViewController:friendListView animated:YES];
     }
 }
 

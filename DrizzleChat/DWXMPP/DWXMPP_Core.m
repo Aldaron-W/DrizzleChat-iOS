@@ -114,8 +114,8 @@
 #pragma mark - Login
 - (void)loginWithUserName:(NSString *)userName andPassWord:(NSString *)passWord{
     if (userName && passWord) {
-        self.userName = userName;
-        self.passWord = passWord;
+        self.userName = @"zyy@localhost";
+        self.passWord = @"123";
         
         [self login];
     }
@@ -178,6 +178,15 @@
 	self.xmppvCard = nil;
     self.xmppCapabilities = nil;
 	self.xmppCapabilitiesStorage = nil;
+}
+
+#pragma mark -  Core Data
+- (NSManagedObjectContext *)managedObjectContext_roster{
+	return [self.xmppRosterStorage_CoreData mainThreadManagedObjectContext];
+}
+
+- (NSManagedObjectContext *)managedObjectContext_capabilities{
+	return [self.xmppvCardStorage_CoreData mainThreadManagedObjectContext];
 }
 
 #pragma mark - XMPPStreamDelegate
@@ -306,6 +315,7 @@
     }
     return _xmppRoster;
 }
+
 #pragma mark XMPP_vCard(XEP-054)
 // Setup vCard support
 //

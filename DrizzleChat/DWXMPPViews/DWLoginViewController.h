@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "XMPPFramework.h"
 #import "DWXMPP_Header.h"
 #import "MBProgressHUD.h"
+#import "DWFriendListViewController.h"
 
 @interface DWLoginViewController : UIViewController<MBProgressHUDDelegate>{
     

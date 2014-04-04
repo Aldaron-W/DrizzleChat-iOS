@@ -20,6 +20,35 @@ typedef NS_ENUM(NSInteger, XMPPMessageType) {
 
 @interface DWXMPP_Core : NSObject<XMPPStreamDelegate, XMPPRosterDelegate>
 
+#pragma mark - XMPPFramework
+#pragma mark XMPP_Core
+/** XMPP交流所用到的主要对象 */
+@property (nonatomic, strong, readonly) XMPPStream *xmppStream;
+
+#pragma mark XMPP_Reconnect
+/** XMPP重新连接对象 */
+@property (nonatomic, strong, readonly) XMPPReconnect *xmppReconnect;
+
+#pragma mark XMPP_Roster
+/** XMPP花名册管理对象 */
+@property (nonatomic, strong, readonly) XMPPRoster *xmppRoster;
+/** XMPP花名册存储对象（CoreData） */
+@property (nonatomic, strong, readonly) XMPPRosterCoreDataStorage *xmppRosterStorage_CoreData;
+
+#pragma mark XMPP_vCard(XEP-054)
+/** XMPP名片管理对象的工厂函数 */
+@property (nonatomic, strong, readonly) XMPPvCardTempModule *xmppvCardTempModule;
+/** XMPP名片管理对象 */
+@property (nonatomic, strong, readonly) XMPPvCardAvatarModule *xmppvCard;
+/** XMPP名片存储对象（CoreData） */
+@property (nonatomic, strong, readonly) XMPPvCardCoreDataStorage *xmppvCardStorage_CoreData;
+
+#pragma mark XMPP_Capabilities(XEP-115)
+/** XMPP客户端信息管理对象 */
+@property (nonatomic, strong, readonly) XMPPCapabilities *xmppCapabilities;
+/** XMPP客户端信息存储对象（CoreData） */
+@property (nonatomic, strong, readonly) XMPPCapabilitiesCoreDataStorage *xmppCapabilitiesStorage;
+
 #pragma mark - Singleton
 + (DWXMPP_Core *)sharedManager;
 
@@ -32,5 +61,9 @@ typedef NS_ENUM(NSInteger, XMPPMessageType) {
 
 #pragma mark - Logout
 - (void)logout;
+
+#pragma mark -  Core Data
+- (NSManagedObjectContext *)managedObjectContext_roster;
+- (NSManagedObjectContext *)managedObjectContext_capabilities;
 
 @end

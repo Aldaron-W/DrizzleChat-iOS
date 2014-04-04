@@ -1393,11 +1393,11 @@
 		F5A1859118D9677200F13681 /* DWXMPPViews */ = {
 			isa = PBXGroup;
 			children = (
-				F51A749218EE64EA0021BFC2 /* DWLoginViewController.xib */,
-				F51A749318EE64EA0021BFC2 /* DWLoginViewController.m */,
-				F51A749418EE64EA0021BFC2 /* DWLoginViewController.h */,
 				F5A1858E18D9676B00F13681 /* DWFriendListViewController.h */,
 				F5A1858F18D9676B00F13681 /* DWFriendListViewController.m */,
+				F51A749418EE64EA0021BFC2 /* DWLoginViewController.h */,
+				F51A749318EE64EA0021BFC2 /* DWLoginViewController.m */,
+				F51A749218EE64EA0021BFC2 /* DWLoginViewController.xib */,
 			);
 			name = DWXMPPViews;
 			sourceTree = "<group>";

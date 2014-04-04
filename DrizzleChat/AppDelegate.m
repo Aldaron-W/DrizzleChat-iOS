@@ -13,6 +13,13 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+
+    DWLoginViewController *rootViewController = [[DWLoginViewController alloc] initWithNibName:@"DWLoginViewController" bundle:nil];
+    UINavigationController *rootNavController = [[UINavigationController alloc] initWithRootViewController:rootViewController];
+    self.window.rootViewController = rootNavController;
+    [self.window makeKeyAndVisible];
+    
     return YES;
 }
 							

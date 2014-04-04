@@ -26,6 +26,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [self.navigationController.navigationItem setBackBarButtonItem:nil];
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -44,77 +46,129 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
-    return 0;
+    return [[[self fetchedResultsController] sections] count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    return 0;
+    NSArray *sections = [[self fetchedResultsController] sections];
+	
+	if (section < [sections count])
+	{
+		id <NSFetchedResultsSectionInfo> sectionInfo = [sections objectAtIndex:section];
+		return sectionInfo.numberOfObjects;
+	}
+	
+	return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    
-    // Configure the cell...
-    
-    return cell;
+	
+	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+	if (cell == nil)
+	{
+		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                      reuseIdentifier:CellIdentifier];
+	}
+	
+	XMPPUserCoreDataStorageObject *user = [[self fetchedResultsController] objectAtIndexPath:indexPath];
+	
+	cell.textLabel.text = user.displayName;
+	[self configurePhotoForCell:cell user:user];
+	
+	return cell;
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+- (NSString *)tableView:(UITableView *)sender titleForHeaderInSection:(NSInteger)sectionIndex
 {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+	NSArray *sections = [[self fetchedResultsController] sections];
+	
+	if (sectionIndex < [sections count])
+	{
+		id <NSFetchedResultsSectionInfo> sectionInfo = [sections objectAtIndex:sectionIndex];
+        
+		int section = [sectionInfo.name intValue];
+		switch (section)
+		{
+			case 0  : return @"Available";
+			case 1  : return @"Away";
+			default : return @"Offline";
+		}
+	}
+	
+	return @"";
 }
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark NSFetchedResultsController
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+- (NSFetchedResultsController *)fetchedResultsController
 {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+	if (fetchedResultsController == nil)
+	{
+		NSManagedObjectContext *moc = [[DWXMPP_Core sharedManager] managedObjectContext_roster];
+		
+		NSEntityDescription *entity = [NSEntityDescription entityForName:@"XMPPUserCoreDataStorageObject"
+		                                          inManagedObjectContext:moc];
+		
+		NSSortDescriptor *sd1 = [[NSSortDescriptor alloc] initWithKey:@"sectionNum" ascending:YES];
+		NSSortDescriptor *sd2 = [[NSSortDescriptor alloc] initWithKey:@"displayName" ascending:YES];
+		
+		NSArray *sortDescriptors = [NSArray arrayWithObjects:sd1, sd2, nil];
+		
+		NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+		[fetchRequest setEntity:entity];
+		[fetchRequest setSortDescriptors:sortDescriptors];
+		[fetchRequest setFetchBatchSize:10];
+		
+		fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
+		                                                               managedObjectContext:moc
+		                                                                 sectionNameKeyPath:@"sectionNum"
+		                                                                          cacheName:nil];
+		[fetchedResultsController setDelegate:self];
+		
+		NSError *error = nil;
+		if (![fetchedResultsController performFetch:&error])
+		{
+            
+		}
+        
+	}
+	
+	return fetchedResultsController;
 }
-*/
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
 {
+	[[self tableView] reloadData];
 }
-*/
 
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark UITableViewCell helpers
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+- (void)configurePhotoForCell:(UITableViewCell *)cell user:(XMPPUserCoreDataStorageObject *)user
 {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
+	// Our xmppRosterStorage will cache photos as they arrive from the xmppvCardAvatarModule.
+	// We only need to ask the avatar module for a photo, if the roster doesn't have it.
+	
+	if (user.photo != nil)
+	{
+		cell.imageView.image = user.photo;
+	}
+	else
+	{
+		NSData *photoData = [[[DWXMPP_Core sharedManager] xmppvCard] photoDataForJID:user.jid];
+        
+		if (photoData != nil)
+			cell.imageView.image = [UIImage imageWithData:photoData];
+		else
+			cell.imageView.image = [UIImage imageNamed:@"defaultPerson"];
+	}
 }
-*/
 
-/*
-#pragma mark - Navigation
-
-// In a story board-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-
- */
 
 @end
