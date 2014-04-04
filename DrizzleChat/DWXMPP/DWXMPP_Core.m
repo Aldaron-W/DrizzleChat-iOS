@@ -12,20 +12,26 @@
 
 #pragma mark - XMPPFramework
 #pragma mark XMPP_Core
-/**
- *  XMPP交流所用到的主要对象
- */
+/** XMPP交流所用到的主要对象 */
 @property (nonatomic, strong) XMPPStream *xmppStream;
 
 #pragma mark XMPP_Reconnect
-/**
- * Setup reconnect
- *
- * The XMPPReconnect module monitors for "accidental disconnections" and
- * automatically reconnects the stream for you.
- * There's a bunch more information in the XMPPReconnect header file.
- */
+/** XMPP重新连接对象 */
 @property (nonatomic, strong) XMPPReconnect *xmppReconnect;
+
+#pragma mark XMPP_Roster
+/** XMPP花名册管理对象 */
+@property (nonatomic, strong) XMPPRoster *xmppRoster;
+/** XMPP花名册存储对象（CoreData） */
+@property (nonatomic, strong) XMPPRosterCoreDataStorage *xmppRosterStorage_CoreData;
+
+#pragma mark XMPP_vCard
+/** XMPP名片管理对象的工厂函数 */
+@property (nonatomic, strong) XMPPvCardTempModule *xmppvCardTempModule;
+/** XMPP名片管理对象 */
+@property (nonatomic, strong) XMPPvCardAvatarModule *xmppvCard;
+/** XMPP名片存储对象（CoreData） */
+@property (nonatomic, strong) XMPPvCardCoreDataStorage *xmppvCardStorage_CoreData;
 
 #pragma mark - DW_UserData
 @property (nonatomic, strong) NSString *userName;
@@ -84,19 +90,15 @@
     if (!self.xmppReconnect) {
         return NO;
     }
-    
+    //XMPP_Roster
+    if (!self.xmppRoster) {
+        return NO;
+    }
+    //XMPP_vCard
+    if (!self.xmppvCard) {
+        return NO;
+    }
     return YES;
-}
-
-#pragma mark - Delloc
-- (void)dealloc{
-    //XMPP_Core
-    [self.xmppStream removeDelegate:self];
-    //XMPP_Reconnect
-    [self.xmppReconnect         deactivate];
-    
-    self.xmppStream = nil;
-    self.xmppReconnect = nil;
 }
 
 #pragma mark - Login
@@ -141,11 +143,26 @@
 
 - (void)teardownStream
 {
-	[self.xmppStream removeDelegate:self];
-	
 	[self.xmppStream disconnect];
-	
-	self.xmppStream = nil;
+    
+    //XMPP_Core
+    [self.xmppStream removeDelegate:self];
+    //XMPP_Reconnect
+    [self.xmppReconnect         deactivate];
+    //XMPP_Roster
+    [self.xmppRoster removeDelegate:self];
+    [self.xmppRoster            deactivate];
+    //XMPP_vCard
+    [self.xmppvCardTempModule   deactivate];
+	[self.xmppvCard deactivate];
+    
+    self.xmppStream = nil;
+    self.xmppReconnect = nil;
+    self.xmppRoster = nil;
+	self.xmppRosterStorage_CoreData = nil;
+	self.xmppvCardStorage_CoreData = nil;
+    self.xmppvCardTempModule = nil;
+	self.xmppvCard = nil;
 }
 
 #pragma mark - XMPPStreamDelegate
@@ -195,36 +212,7 @@
 #pragma mark GetPresence
 - (void)xmppStream:(XMPPStream *)sender didReceivePresence:(XMPPPresence *)presence
 {
-    NSLog(@"信息类型 :%@ From :%@ To ：%@", [presence type], [presence from], [presence to]);
     
-    switch ([self GetPresenceType:[presence type]]) {
-        case XMPPMessageType_Subscribe:{
-            break;
-        }
-        case XMPPMessageType_Available:{
-            break;
-        }
-        case XMPPMessageType_UnAvailable:{
-            break;
-        }
-        case XMPPMessageType_Unknown:
-        default:{
-            break;
-        }
-    }
-}
-
-- (XMPPMessageType)GetPresenceType:(NSString *)messageType{
-    if ([messageType isEqualToString:@"subscribe"]) {
-        return XMPPMessageType_Subscribe;
-    }
-    else if ([messageType isEqualToString:@"available"]){
-        return XMPPMessageType_Available;
-    }
-    else if ([messageType isEqualToString:@"unavailable"]){
-        return XMPPMessageType_UnAvailable;
-    }
-    return XMPPMessageType_Unknown;
 }
 
 #pragma mark - GetIQ
@@ -280,6 +268,45 @@
         [_xmppReconnect         activate:self.xmppStream];
     }
     return _xmppReconnect;
+}
+
+#pragma mark XMPP_Roster
+// Setup roster
+//
+// The XMPPRoster handles the xmpp protocol stuff related to the roster.
+// The storage for the roster is abstracted.
+// So you can use any storage mechanism you want.
+// You can store it all in memory, or use core data and store it on disk, or use core data with an in-memory store,
+// or setup your own using raw SQLite, or create your own storage mechanism.
+// You can do it however you like! It's your application.
+// But you do need to provide the roster with some storage facility.
+- (XMPPRoster *)xmppRoster{
+    if (!_xmppRoster) {
+        self.xmppRosterStorage_CoreData = [[XMPPRosterCoreDataStorage alloc] init];
+        _xmppRoster = [[XMPPRoster alloc] initWithRosterStorage:self.xmppRosterStorage_CoreData];
+        _xmppRoster.autoFetchRoster = YES;
+        _xmppRoster.autoAcceptKnownPresenceSubscriptionRequests = YES;
+        [_xmppRoster            activate:self.xmppStream];
+        [_xmppRoster addDelegate:self delegateQueue:dispatch_get_main_queue()];
+    }
+    return _xmppRoster;
+}
+#pragma mark XMPP_vCard
+// Setup vCard support
+//
+// The vCard Avatar module works in conjuction with the standard vCard Temp module to download user avatars.
+// The XMPPRoster will automatically integrate with XMPPvCardAvatarModule to cache roster photos in the roster.
+- (XMPPvCardAvatarModule *)xmppvCard{
+    if (!_xmppvCard) {
+        self.xmppvCardStorage_CoreData = [XMPPvCardCoreDataStorage sharedInstance];
+        self.xmppvCardTempModule = [[XMPPvCardTempModule alloc] initWithvCardStorage:self.xmppvCardStorage_CoreData];
+        
+        _xmppvCard = [[XMPPvCardAvatarModule alloc] initWithvCardTempModule:self.xmppvCardTempModule];
+        
+        [self.xmppvCardTempModule   activate:self.xmppStream];
+        [self.xmppvCard activate:self.xmppStream];
+    }
+    return _xmppvCard;
 }
 
 #pragma mark UserData
