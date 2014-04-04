@@ -24,10 +24,11 @@ typedef NS_ENUM(NSInteger, XMPPMessageType) {
 + (DWXMPP_Core *)sharedManager;
 
 #pragma mark - Initialization
-- (instancetype) initWithUserName:(NSString *)userName andPassWord:(NSString *)passWord;
+- (BOOL)initUserDataWithUserName:(NSString *)userName andPassWord:(NSString *)passWord;
 
 #pragma mark - Login
 - (void)loginWithUserName:(NSString *)userName andPassWord:(NSString *)passWord;
+- (void)login;
 
 #pragma mark - Logout
 - (void)logout;

@@ -25,13 +25,19 @@
 /** XMPP花名册存储对象（CoreData） */
 @property (nonatomic, strong) XMPPRosterCoreDataStorage *xmppRosterStorage_CoreData;
 
-#pragma mark XMPP_vCard
+#pragma mark XMPP_vCard(XEP-054)
 /** XMPP名片管理对象的工厂函数 */
 @property (nonatomic, strong) XMPPvCardTempModule *xmppvCardTempModule;
 /** XMPP名片管理对象 */
 @property (nonatomic, strong) XMPPvCardAvatarModule *xmppvCard;
 /** XMPP名片存储对象（CoreData） */
 @property (nonatomic, strong) XMPPvCardCoreDataStorage *xmppvCardStorage_CoreData;
+
+#pragma mark XMPP_Capabilities(XEP-115)
+/** XMPP客户端信息管理对象 */
+@property (nonatomic, strong) XMPPCapabilities *xmppCapabilities;
+/** XMPP客户端信息存储对象（CoreData） */
+@property (nonatomic, strong) XMPPCapabilitiesCoreDataStorage *xmppCapabilitiesStorage;
 
 #pragma mark - DW_UserData
 @property (nonatomic, strong) NSString *userName;
@@ -65,7 +71,6 @@
         self.userName = userName;
         self.passWord = passWord;
         self.resource = nil;
-//        self.DWFriends = [[DWXMPP_Friends alloc] initWithXMPPStream:self.xmppStream];
     }
     return self;
 }
@@ -78,6 +83,7 @@
     else{
         return NO;
     }
+    
     return YES;
 }
 
@@ -98,6 +104,10 @@
     if (!self.xmppvCard) {
         return NO;
     }
+    //XMPP_Capabilities
+    if (!self.xmppCapabilities) {
+        return NO;
+    }
     return YES;
 }
 
@@ -112,6 +122,7 @@
 }
 
 - (void)login{
+    [self initXMPPFramework];
     [self.xmppStream setMyJID:[XMPPJID jidWithString:self.userName resource:self.resource]];
     
     NSError *error = nil;
@@ -155,6 +166,8 @@
     //XMPP_vCard
     [self.xmppvCardTempModule   deactivate];
 	[self.xmppvCard deactivate];
+    //XMPP_Capabilities
+    [self.xmppCapabilities      deactivate];
     
     self.xmppStream = nil;
     self.xmppReconnect = nil;
@@ -163,6 +176,8 @@
 	self.xmppvCardStorage_CoreData = nil;
     self.xmppvCardTempModule = nil;
 	self.xmppvCard = nil;
+    self.xmppCapabilities = nil;
+	self.xmppCapabilitiesStorage = nil;
 }
 
 #pragma mark - XMPPStreamDelegate
@@ -291,7 +306,7 @@
     }
     return _xmppRoster;
 }
-#pragma mark XMPP_vCard
+#pragma mark XMPP_vCard(XEP-054)
 // Setup vCard support
 //
 // The vCard Avatar module works in conjuction with the standard vCard Temp module to download user avatars.
@@ -307,6 +322,38 @@
         [self.xmppvCard activate:self.xmppStream];
     }
     return _xmppvCard;
+}
+#pragma mark XMPP_Capabilities(XEP-115)
+// Setup capabilities
+//
+// The XMPPCapabilities module handles all the complex hashing of the caps protocol (XEP-0115).
+// Basically, when other clients broadcast their presence on the network
+// they include information about what capabilities their client supports (audio, video, file transfer, etc).
+// But as you can imagine, this list starts to get pretty big.
+// This is where the hashing stuff comes into play.
+// Most people running the same version of the same client are going to have the same list of capabilities.
+// So the protocol defines a standardized way to hash the list of capabilities.
+// Clients then broadcast the tiny hash instead of the big list.
+// The XMPPCapabilities protocol automatically handles figuring out what these hashes mean,
+// and also persistently storing the hashes so lookups aren't needed in the future.
+//
+// Similarly to the roster, the storage of the module is abstracted.
+// You are strongly encouraged to persist caps information across sessions.
+//
+// The XMPPCapabilitiesCoreDataStorage is an ideal solution.
+// It can also be shared amongst multiple streams to further reduce hash lookups.
+- (XMPPCapabilities *)xmppCapabilities{
+    if (!_xmppCapabilities) {
+        self.xmppCapabilitiesStorage = [XMPPCapabilitiesCoreDataStorage sharedInstance];
+        _xmppCapabilities = [[XMPPCapabilities alloc] initWithCapabilitiesStorage:self.xmppCapabilitiesStorage];
+        
+        _xmppCapabilities.autoFetchHashedCapabilities = YES;
+        _xmppCapabilities.autoFetchNonHashedCapabilities = NO;
+        
+        [_xmppCapabilities      activate:self.xmppStream];
+        
+    }
+    return _xmppCapabilities;
 }
 
 #pragma mark UserData
