@@ -10,7 +10,6 @@
 #define DrizzleChat_DWXMPP_Header_h
 
 #import "DWXMPP_Core.h"
-#import "DWXMPP_Friends.h"
 
 #pragma mark - ServerData
 #define DrizzleChat_XMPP_IP @"115.28.228.212"

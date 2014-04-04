@@ -10,16 +10,29 @@
 
 @interface DWXMPP_Core ()
 
+#pragma mark - XMPPFramework
+#pragma mark XMPP_Core
 /**
  *  XMPP交流所用到的主要对象
  */
 @property (nonatomic, strong) XMPPStream *xmppStream;
-@property (nonatomic, strong) DWXMPP_Friends *DWFriends;
 
+#pragma mark XMPP_Reconnect
+/**
+ * Setup reconnect
+ *
+ * The XMPPReconnect module monitors for "accidental disconnections" and
+ * automatically reconnects the stream for you.
+ * There's a bunch more information in the XMPPReconnect header file.
+ */
+@property (nonatomic, strong) XMPPReconnect *xmppReconnect;
+
+#pragma mark - DW_UserData
 @property (nonatomic, strong) NSString *userName;
 @property (nonatomic, strong) NSString *passWord;
 @property (nonatomic, strong) NSString *resource;
 
+#pragma mark - DW_ServerData
 @property (nonatomic, strong) NSString *XMPPServiceIP;
 @property (nonatomic, assign) int XMPPServicePort;
 
@@ -49,6 +62,17 @@
 //        self.DWFriends = [[DWXMPP_Friends alloc] initWithXMPPStream:self.xmppStream];
     }
     return self;
+}
+
+#pragma mark - Delloc
+- (void)dealloc{
+    //XMPP_Core
+    [self.xmppStream removeDelegate:self];
+    //XMPP_Reconnect
+    [self.xmppReconnect         deactivate];
+    
+    self.xmppStream = nil;
+    self.xmppReconnect = nil;
 }
 
 #pragma mark - Login
@@ -94,7 +118,6 @@
 - (void)teardownStream
 {
 	[self.xmppStream removeDelegate:self];
-    [self.DWFriends teardownFriends];
 	
 	[self.xmppStream disconnect];
 	
@@ -190,7 +213,7 @@
 }
 
 #pragma mark - Getter
-#pragma mark XMPP
+#pragma mark XMPP_Core
 - (XMPPStream *)xmppStream{
     if (!_xmppStream) {
         _xmppStream = [[XMPPStream alloc] init];
@@ -198,12 +221,44 @@
         [_xmppStream addDelegate:self delegateQueue:dispatch_get_main_queue()];
         [_xmppStream setHostName:DrizzleChat_XMPP_IP];
         [_xmppStream setHostPort:DrizzleChat_XMPP_port];
+        
+#if !TARGET_IPHONE_SIMULATOR
+        {
+            // Want xmpp to run in the background?
+            //
+            // P.S. - The simulator doesn't support backgrounding yet.
+            //        When you try to set the associated property on the simulator, it simply fails.
+            //        And when you background an app on the simulator,
+            //        it just queues network traffic til the app is foregrounded again.
+            //        We are patiently waiting for a fix from Apple.
+            //        If you do enableBackgroundingOnSocket on the simulator,
+            //        you will simply see an error message from the xmpp stack when it fails to set the property.
+            
+            _xmppStream.enableBackgroundingOnSocket = YES;
+        }
+#endif
     }
     
     return _xmppStream;
 }
 
-#pragma makr UserData
+#pragma mark XMPP_Reconnect
+/**
+ * Setup reconnect
+ *
+ * The XMPPReconnect module monitors for "accidental disconnections" and
+ * automatically reconnects the stream for you.
+ * There's a bunch more information in the XMPPReconnect header file.
+ */
+- (XMPPReconnect *)xmppReconnect{
+    if (!_xmppReconnect) {
+        _xmppReconnect = [[XMPPReconnect alloc] init];
+        [_xmppReconnect         activate:self.xmppStream];
+    }
+    return _xmppReconnect;
+}
+
+#pragma mark UserData
 - (NSString *)resource{
     if (!_resource) {
         int r = arc4random() % 99999;

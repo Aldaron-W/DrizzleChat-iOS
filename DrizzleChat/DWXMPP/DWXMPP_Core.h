@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "DWXMPP_Header.h"
+#import "XMPPFramework.h"
 
 #pragma mark - DWXMPP_Core
 typedef NS_ENUM(NSInteger, XMPPMessageType) {

@@ -154,7 +154,6 @@
 		F57B554518C702420016D401 /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F57B554418C702420016D401 /* libresolv.dylib */; };
 		F57B554818C707280016D401 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F57B554218C701FC0016D401 /* libxml2.dylib */; };
 		F57B554A18C7080A0016D401 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F57B554918C7080A0016D401 /* Security.framework */; };
-		F588E76618D7E4EF00074277 /* DWXMPP_Friends.m in Sources */ = {isa = PBXBuildFile; fileRef = F588E76518D7E4EF00074277 /* DWXMPP_Friends.m */; };
 		F5A1858C18D965B700F13681 /* build-libidn.sh in Resources */ = {isa = PBXBuildFile; fileRef = F5A1858818D965B700F13681 /* build-libidn.sh */; };
 		F5A1858D18D965B700F13681 /* libidn.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F5A1858A18D965B700F13681 /* libidn.a */; };
 		F5A1859018D9676B00F13681 /* DWFriendListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5A1858F18D9676B00F13681 /* DWFriendListViewController.m */; };
@@ -463,8 +462,6 @@
 		F57B554218C701FC0016D401 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		F57B554418C702420016D401 /* libresolv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libresolv.dylib; path = usr/lib/libresolv.dylib; sourceTree = SDKROOT; };
 		F57B554918C7080A0016D401 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		F588E76418D7E4EF00074277 /* DWXMPP_Friends.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWXMPP_Friends.h; path = DWXMPP/DWXMPP_Friends.h; sourceTree = "<group>"; };
-		F588E76518D7E4EF00074277 /* DWXMPP_Friends.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWXMPP_Friends.m; path = DWXMPP/DWXMPP_Friends.m; sourceTree = "<group>"; };
 		F5A1858818D965B700F13681 /* build-libidn.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "build-libidn.sh"; sourceTree = "<group>"; };
 		F5A1858918D965B700F13681 /* idn-int.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "idn-int.h"; sourceTree = "<group>"; };
 		F5A1858A18D965B700F13681 /* libidn.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libidn.a; sourceTree = "<group>"; };
@@ -1421,8 +1418,6 @@
 				F5FDA5A718D2FDD600658E7D /* DWXMPP_Core.h */,
 				F5FDA5A818D2FDD600658E7D /* DWXMPP_Core.m */,
 				F5FDA5AA18D2FF3600658E7D /* DWXMPP_Header.h */,
-				F588E76418D7E4EF00074277 /* DWXMPP_Friends.h */,
-				F588E76518D7E4EF00074277 /* DWXMPP_Friends.m */,
 			);
 			name = DWXMPP;
 			sourceTree = "<group>";
@@ -1642,7 +1637,6 @@
 				F57B516018C6FAF80016D401 /* XMPPRoomOccupantMemoryStorageObject.m in Sources */,
 				F57B513218C6FAF80016D401 /* XMPPPlainAuthentication.m in Sources */,
 				F57B553E18C700F80016D401 /* DDXMLElement.m in Sources */,
-				F588E76618D7E4EF00074277 /* DWXMPP_Friends.m in Sources */,
 				F57B514118C6FAF80016D401 /* XMPPBandwidthMonitor.m in Sources */,
 				F57B515B18C6FAF80016D401 /* XMPPRoomHybridStorage.m in Sources */,
 				F57B51A318C6FAF80016D401 /* DDASLLogger.m in Sources */,
