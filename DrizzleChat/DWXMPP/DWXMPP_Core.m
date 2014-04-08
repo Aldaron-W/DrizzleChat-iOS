@@ -126,8 +126,8 @@
 #pragma mark - Login
 - (void)loginWithUserName:(NSString *)userName andPassWord:(NSString *)passWord{
     if (userName && passWord) {
-        self.userName = @"zyy@localhost";
-        self.passWord = @"123";
+        self.userName = userName;
+        self.passWord = passWord;
         
         [self login];
     }
@@ -146,11 +146,16 @@
 }
 
 #pragma mark - Register
+- (void)registerWithUserName:(NSString *)userName andPassWord:(NSString *)passWord{
+    if (userName && passWord) {
+        self.userName = userName;
+        self.passWord = passWord;
+        
+        [self registerXMPPUser];
+    }
+}
 
-- (void)registerXMPP{
-    self.userName = @"test2@drizzle1.com";
-    self.passWord = @"123";
-    
+- (void)registerXMPPUser{
     [self initXMPPFramework];
     [self.xmppStream setMyJID:[XMPPJID jidWithString:self.userName resource:self.resource]];
     isRegister = YES;
@@ -439,7 +444,7 @@
 #pragma mark XMPP_MessageController(XEP-136)
 - (XMPPMessageArchiving *)xmppMessageArchiving{
     if (!_xmppMessageArchiving) {
-        self.xmppMessageArchivngStorage_CoreData = [[XMPPMessageArchivingCoreDataStorage alloc] init];
+        self.xmppMessageArchivngStorage_CoreData = [XMPPMessageArchivingCoreDataStorage sharedInstance];
         _xmppMessageArchiving = [[XMPPMessageArchiving alloc] initWithMessageArchivingStorage:self.xmppMessageArchivngStorage_CoreData];
         
         [_xmppMessageArchiving activate:self.xmppStream];

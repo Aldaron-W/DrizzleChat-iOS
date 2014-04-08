@@ -63,7 +63,7 @@ typedef NS_ENUM(NSInteger, XMPPMessageType) {
 - (void)logout;
 
 #pragma mark - Register
-- (void)registerXMPP;
+- (void)registerWithUserName:(NSString *)userName andPassWord:(NSString *)passWord;
 
 #pragma mark - MessageController
 - (void)sendMessage:(NSString *)message andReciver:(XMPPJID *)reciverJID;
