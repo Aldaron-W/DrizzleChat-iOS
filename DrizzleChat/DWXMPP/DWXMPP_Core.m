@@ -126,7 +126,7 @@
     [self.xmppStream setMyJID:[XMPPJID jidWithString:self.userName resource:self.resource]];
     
     NSError *error = nil;
-	if (![self.xmppStream connectWithTimeout:XMPPStreamTimeoutNone error:&error]){
+	if (![self.xmppStream connectWithTimeout:30 error:&error]){
         /** DWXMPP连接服务器失败的Notification */
         [[NSNotificationCenter defaultCenter] postNotificationName:DWXMPP_NOTIFICATION_CONNECT_FAULT object:error];
 	}
@@ -135,14 +135,14 @@
 #pragma mark - Register
 
 - (void)registerXMPP{
-    self.userName = @"test2@drizzle.com";
+    self.userName = @"test2@drizzle1.com";
     self.passWord = @"123";
     
     [self initXMPPFramework];
     [self.xmppStream setMyJID:[XMPPJID jidWithString:self.userName resource:self.resource]];
     
     NSError *error = nil;
-	if (![self.xmppStream connectWithTimeout:XMPPStreamTimeoutNone error:&error]){
+	if (![self.xmppStream connectWithTimeout:30 error:&error]){
         /** DWXMPP连接服务器失败的Notification */
         [[NSNotificationCenter defaultCenter] postNotificationName:DWXMPP_NOTIFICATION_CONNECT_FAULT object:error];
 	}
@@ -240,6 +240,14 @@
         /** DWXMPP将要验证密码的Notification */
         [[NSNotificationCenter defaultCenter] postNotificationName:DWXMPP_NOTIFICATION_WILL_AUTNENTICATE object:self.xmppStream];
     }
+}
+
+- (void)xmppStreamConnectDidTimeout:(XMPPStream *)sender{
+    [[NSNotificationCenter defaultCenter] postNotificationName:DWXMPP_NOTIFICATION_CONNECT_FAULT object:sender];
+}
+
+- (void)xmppStreamDidDisconnect:(XMPPStream *)sender withError:(NSError *)error{
+    [[NSNotificationCenter defaultCenter] postNotificationName:DWXMPP_NOTIFICATION_CONNECT_FAULT object:error];
 }
 
 #pragma mark Authenticate（密码鉴定）
