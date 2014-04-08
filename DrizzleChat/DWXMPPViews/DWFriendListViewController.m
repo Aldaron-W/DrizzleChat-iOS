@@ -101,6 +101,12 @@
 	return @"";
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    XMPPUserCoreDataStorageObject *user = [[self fetchedResultsController] objectAtIndexPath:indexPath];
+    
+    [[DWXMPP_Core sharedManager] sendMessage:@"你好" andReciver:user.jid];
+}
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark NSFetchedResultsController
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

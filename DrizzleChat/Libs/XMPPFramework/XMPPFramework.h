@@ -60,6 +60,8 @@
 #import "NSDate+XMPPDateTimeProfiles.h"
 
 #import "XMPPMessage+XEP_0085.h"
+#import "XMPPMessageArchiving.h"
+#import "XMPPMessageArchivingCoreDataStorage.h"
 
 #import "XMPPTransports.h"
 

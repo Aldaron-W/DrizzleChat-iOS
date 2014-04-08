@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "DWXMPP_Header.h"
+#import "DWXMPP_Core.h"
 #import "MBProgressHUD.h"
 #import "DWFriendListViewController.h"
 

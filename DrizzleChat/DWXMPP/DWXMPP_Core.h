@@ -65,6 +65,9 @@ typedef NS_ENUM(NSInteger, XMPPMessageType) {
 #pragma mark - Register
 - (void)registerXMPP;
 
+#pragma mark - MessageController
+- (void)sendMessage:(NSString *)message andReciver:(XMPPJID *)reciverJID;
+
 #pragma mark -  Core Data
 - (NSManagedObjectContext *)managedObjectContext_roster;
 - (NSManagedObjectContext *)managedObjectContext_capabilities;

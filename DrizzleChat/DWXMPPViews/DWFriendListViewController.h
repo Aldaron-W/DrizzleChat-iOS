@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "DWXMPP_Header.h"
+#import "DWXMPP_Core.h"
+#import "DWXMPP_Core+DWXMPP_Core_MessageController.h"
 
 @interface DWFriendListViewController : UITableViewController<NSFetchedResultsControllerDelegate>{
     NSFetchedResultsController *fetchedResultsController;

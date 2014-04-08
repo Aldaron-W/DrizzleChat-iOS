@@ -8,7 +8,9 @@
 
 #import "DWXMPP_Core.h"
 
-@interface DWXMPP_Core ()
+@interface DWXMPP_Core (){
+    BOOL isRegister;
+}
 
 #pragma mark - XMPPFramework
 #pragma mark XMPP_Core
@@ -38,6 +40,12 @@
 @property (nonatomic, strong) XMPPCapabilities *xmppCapabilities;
 /** XMPP客户端信息存储对象（CoreData） */
 @property (nonatomic, strong) XMPPCapabilitiesCoreDataStorage *xmppCapabilitiesStorage;
+
+#pragma mark XMPP_MessageController(XEP-136)
+/** XMPPMessage存储的管理对象 */
+@property (nonatomic, strong) XMPPMessageArchiving *xmppMessageArchiving;
+/** XMPPMessage的CoreData存储的管理对象 */
+@property (nonatomic, strong) XMPPMessageArchivingCoreDataStorage *xmppMessageArchivngStorage_CoreData;
 
 #pragma mark - DW_UserData
 @property (nonatomic, strong) NSString *userName;
@@ -108,6 +116,10 @@
     if (!self.xmppCapabilities) {
         return NO;
     }
+    //XMPP_MessageArchiving
+    if (!self.xmppMessageArchiving) {
+        return NO;
+    }
     return YES;
 }
 
@@ -124,6 +136,7 @@
 - (void)login{
     [self initXMPPFramework];
     [self.xmppStream setMyJID:[XMPPJID jidWithString:self.userName resource:self.resource]];
+    isRegister = NO;
     
     NSError *error = nil;
 	if (![self.xmppStream connectWithTimeout:30 error:&error]){
@@ -140,6 +153,7 @@
     
     [self initXMPPFramework];
     [self.xmppStream setMyJID:[XMPPJID jidWithString:self.userName resource:self.resource]];
+    isRegister = YES;
     
     NSError *error = nil;
 	if (![self.xmppStream connectWithTimeout:30 error:&error]){
@@ -182,6 +196,8 @@
 	[self.xmppvCard deactivate];
     //XMPP_Capabilities
     [self.xmppCapabilities      deactivate];
+    //XMPP_MessageArchiving
+    [self.xmppMessageArchiving deactivate];
     
     self.xmppStream = nil;
     self.xmppReconnect = nil;
@@ -192,6 +208,8 @@
 	self.xmppvCard = nil;
     self.xmppCapabilities = nil;
 	self.xmppCapabilitiesStorage = nil;
+    self.xmppMessageArchiving = nil;
+    self.xmppMessageArchivngStorage_CoreData = nil;
 }
 
 #pragma mark -  Core Data
@@ -201,6 +219,14 @@
 
 - (NSManagedObjectContext *)managedObjectContext_capabilities{
 	return [self.xmppvCardStorage_CoreData mainThreadManagedObjectContext];
+}
+
+#pragma mark - MessageController
+- (void)sendMessage:(NSString *)message andReciver:(XMPPJID *)reciverJID{
+    XMPPMessage *sendMessage = [[XMPPMessage alloc] initWithType:@"chat" to:reciverJID];
+    [sendMessage addBody:message];
+    
+    [self.xmppStream sendElement:sendMessage];
 }
 
 #pragma mark - XMPPStreamDelegate
@@ -220,25 +246,28 @@
     NSError *error = nil;
     /** DWXMPP已经连接到服务器的Notification */
     [[NSNotificationCenter defaultCenter] postNotificationName:DWXMPP_NOTIFICATION_CONNECT_SUCCEED object:self.xmppStream];
-    
-    if (![[self xmppStream] registerWithPassword:self.passWord error:&error]) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:DWXMPP_NOTIFICATION_REGISTER_FAULT object:error];
+
+    if (!isRegister) {
+        //登陆
+        if (![[self xmppStream] authenticateWithPassword:self.passWord error:&error])
+        {
+            [self showAlertWithTitle:@"Error authenticating" andMessage:@"验证密码失败"];
+            /** DWXMPP验证密码失败的Notification */
+            [[NSNotificationCenter defaultCenter] postNotificationName:DWXMPP_NOTIFICATION_AUTNENTICATE_FAULT object:error];
+        }
+        else{
+            /** DWXMPP将要验证密码的Notification */
+            [[NSNotificationCenter defaultCenter] postNotificationName:DWXMPP_NOTIFICATION_WILL_AUTNENTICATE object:self.xmppStream];
+        }
     }
     else{
-        [[NSNotificationCenter defaultCenter] postNotificationName:DWXMPP_NOTIFICATION_WILL_REGISTER object:error];
-    }
-    
-    return;
-    
-	if (![[self xmppStream] authenticateWithPassword:self.passWord error:&error])
-	{
-        [self showAlertWithTitle:@"Error authenticating" andMessage:@"验证密码失败"];
-        /** DWXMPP验证密码失败的Notification */
-        [[NSNotificationCenter defaultCenter] postNotificationName:DWXMPP_NOTIFICATION_AUTNENTICATE_FAULT object:error];
-	}
-    else{
-        /** DWXMPP将要验证密码的Notification */
-        [[NSNotificationCenter defaultCenter] postNotificationName:DWXMPP_NOTIFICATION_WILL_AUTNENTICATE object:self.xmppStream];
+        //注册
+        if (![[self xmppStream] registerWithPassword:self.passWord error:&error]) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:DWXMPP_NOTIFICATION_REGISTER_FAULT object:error];
+        }
+        else{
+            [[NSNotificationCenter defaultCenter] postNotificationName:DWXMPP_NOTIFICATION_WILL_REGISTER object:error];
+        }
     }
 }
 
@@ -406,6 +435,16 @@
         
     }
     return _xmppCapabilities;
+}
+#pragma mark XMPP_MessageController(XEP-136)
+- (XMPPMessageArchiving *)xmppMessageArchiving{
+    if (!_xmppMessageArchiving) {
+        self.xmppMessageArchivngStorage_CoreData = [[XMPPMessageArchivingCoreDataStorage alloc] init];
+        _xmppMessageArchiving = [[XMPPMessageArchiving alloc] initWithMessageArchivingStorage:self.xmppMessageArchivngStorage_CoreData];
+        
+        [_xmppMessageArchiving activate:self.xmppStream];
+    }
+    return _xmppMessageArchiving;
 }
 
 #pragma mark UserData
