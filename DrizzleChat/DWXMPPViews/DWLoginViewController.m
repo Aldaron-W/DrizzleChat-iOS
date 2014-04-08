@@ -28,10 +28,8 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didLogin:) name:DWXMPP_NOTIFICATION_WILL_CONNECT object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didLogin:) name:DWXMPP_NOTIFICATION_AUTNENTICATE_SUCCEED object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didNotLogin:) name:DWXMPP_NOTIFICATION_CONNECT_FAULT object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didNotLogin:) name:DWXMPP_NOTIFICATION_AUTNENTICATE_FAULT object:nil];
+    
+    [self registerNotification];
 }
 
 - (void)didReceiveMemoryWarning
@@ -42,9 +40,13 @@
 
 - (void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self name:DWXMPP_NOTIFICATION_WILL_CONNECT object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:DWXMPP_NOTIFICATION_AUTNENTICATE_SUCCEED object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:DWXMPP_NOTIFICATION_CONNECT_FAULT object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:DWXMPP_NOTIFICATION_AUTNENTICATE_SUCCEED object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:DWXMPP_NOTIFICATION_AUTNENTICATE_FAULT object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:DWXMPP_NOTIFICATION_REGISTER_SUCCEED object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:DWXMPP_NOTIFICATION_REGISTER_FAULT object:nil];
 }
 
 #pragma mark - Login
@@ -52,7 +54,9 @@
     NSString *userName = [self.textUserName text];
     NSString *passWord = [self.textPassWord text];
     
-    [[DWXMPP_Core sharedManager] loginWithUserName:userName andPassWord:passWord];
+//    [[DWXMPP_Core sharedManager] loginWithUserName:userName andPassWord:passWord];
+    
+    [[DWXMPP_Core sharedManager] registerXMPP];
 }
 
 - (void)didLogin:(NSNotification *)notification{
@@ -110,8 +114,56 @@
     }
 }
 
+#pragma mark - Register
+- (void)didRegister:(NSNotification *)notification{
+    NSString *strNotification = notification.name;
+    
+    if ([strNotification isEqualToString:DWXMPP_NOTIFICATION_REGISTER_SUCCEED]){
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+        
+        MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.view];
+        HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"37x-Checkmark.png"]];
+        HUD.mode = MBProgressHUDModeCustomView;
+        HUD.labelText = @"注册成功";
+        HUD.removeFromSuperViewOnHide = YES;
+        [self.view addSubview:HUD];
+        [HUD show:YES];
+        [HUD hide:YES afterDelay:1.0];
+    }
+}
+
+- (void)didNotRegister:(NSNotification *)notification{
+    NSString *strNotification = notification.name;
+    
+    if([strNotification isEqualToString:DWXMPP_NOTIFICATION_REGISTER_FAULT]){
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+        
+        NSString *errorCode = [[[notification.object elementsForName:@"error"] firstObject] attributeStringValueForName:@"code"];
+        
+        MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.view];
+        HUD.mode = MBProgressHUDModeText;
+        HUD.detailsLabelText = [NSString stringWithFormat:@"注册失败 错误代码：%@", errorCode];
+        HUD.removeFromSuperViewOnHide = YES;
+        [self.view addSubview:HUD];
+        [HUD show:YES];
+        [HUD hide:YES afterDelay:2];
+    }
+}
+
 #pragma mark - Logout
 - (IBAction)userLogout:(id)sender {
     [[DWXMPP_Core sharedManager] logout];
+}
+
+#pragma mark - Notification
+- (void)registerNotification{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didLogin:) name:DWXMPP_NOTIFICATION_WILL_CONNECT object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didNotLogin:) name:DWXMPP_NOTIFICATION_CONNECT_FAULT object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didLogin:) name:DWXMPP_NOTIFICATION_AUTNENTICATE_SUCCEED object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didNotLogin:) name:DWXMPP_NOTIFICATION_AUTNENTICATE_FAULT object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didRegister:) name:DWXMPP_NOTIFICATION_REGISTER_SUCCEED object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didNotRegister:) name:DWXMPP_NOTIFICATION_REGISTER_FAULT object:nil];
 }
 @end

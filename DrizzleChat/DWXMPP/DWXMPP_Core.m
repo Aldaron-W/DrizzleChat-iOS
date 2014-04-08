@@ -134,6 +134,20 @@
 
 #pragma mark - Register
 
+- (void)registerXMPP{
+    self.userName = @"test2@drizzle.com";
+    self.passWord = @"123";
+    
+    [self initXMPPFramework];
+    [self.xmppStream setMyJID:[XMPPJID jidWithString:self.userName resource:self.resource]];
+    
+    NSError *error = nil;
+	if (![self.xmppStream connectWithTimeout:XMPPStreamTimeoutNone error:&error]){
+        /** DWXMPP连接服务器失败的Notification */
+        [[NSNotificationCenter defaultCenter] postNotificationName:DWXMPP_NOTIFICATION_CONNECT_FAULT object:error];
+	}
+}
+
 #pragma mark - OnLine
 - (void)goOnline{
     XMPPPresence *presence = [XMPPPresence presence]; // type="available" is implicit
@@ -207,6 +221,15 @@
     /** DWXMPP已经连接到服务器的Notification */
     [[NSNotificationCenter defaultCenter] postNotificationName:DWXMPP_NOTIFICATION_CONNECT_SUCCEED object:self.xmppStream];
     
+    if (![[self xmppStream] registerWithPassword:self.passWord error:&error]) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:DWXMPP_NOTIFICATION_REGISTER_FAULT object:error];
+    }
+    else{
+        [[NSNotificationCenter defaultCenter] postNotificationName:DWXMPP_NOTIFICATION_WILL_REGISTER object:error];
+    }
+    
+    return;
+    
 	if (![[self xmppStream] authenticateWithPassword:self.passWord error:&error])
 	{
         [self showAlertWithTitle:@"Error authenticating" andMessage:@"验证密码失败"];
@@ -237,6 +260,17 @@
 - (void)xmppStream:(XMPPStream *)sender didReceivePresence:(XMPPPresence *)presence
 {
     
+}
+
+#pragma mark Register（用户注册 XEP-0077）
+- (void)xmppStreamDidRegister:(XMPPStream *)sender{
+    [self teardownStream];
+    [[NSNotificationCenter defaultCenter] postNotificationName:DWXMPP_NOTIFICATION_REGISTER_SUCCEED object:sender];
+}
+
+- (void)xmppStream:(XMPPStream *)sender didNotRegister:(DDXMLElement *)error{
+    [self teardownStream];
+    [[NSNotificationCenter defaultCenter] postNotificationName:DWXMPP_NOTIFICATION_REGISTER_FAULT object:error];
 }
 
 #pragma mark - GetIQ

@@ -62,6 +62,9 @@ typedef NS_ENUM(NSInteger, XMPPMessageType) {
 #pragma mark - Logout
 - (void)logout;
 
+#pragma mark - Register
+- (void)registerXMPP;
+
 #pragma mark -  Core Data
 - (NSManagedObjectContext *)managedObjectContext_roster;
 - (NSManagedObjectContext *)managedObjectContext_capabilities;

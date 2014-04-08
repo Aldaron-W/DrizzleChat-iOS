@@ -31,4 +31,12 @@
 #define DWXMPP_NOTIFICATION_AUTNENTICATE_SUCCEED @"DWXMPP_Authenticate_Succeed"
 /** DWXMPP验证密码失败的Notification */
 #define DWXMPP_NOTIFICATION_AUTNENTICATE_FAULT @"DWXMPP_Authenticate_Fault"
+
+#pragma mark - Register(注册)
+/** DWXMPP将要注册的Notification */
+#define DWXMPP_NOTIFICATION_WILL_REGISTER @"DWXMPP_Will_Register"
+/** DWXMPP注册成功的Notification */
+#define DWXMPP_NOTIFICATION_REGISTER_SUCCEED @"DWXMPP_Register_Succeed"
+/** DWXMPP注册失败的Notification */
+#define DWXMPP_NOTIFICATION_REGISTER_FAULT @"DWXMPP_Register_Fault"
 #endif
