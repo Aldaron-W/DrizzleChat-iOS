@@ -315,6 +315,11 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:DWXMPP_NOTIFICATION_REGISTER_FAULT object:error];
 }
 
+#pragma mark - RosterDelegate
+- (void)xmppRoster:(XMPPRoster *)sender didReceivePresenceSubscriptionRequest:(XMPPPresence *)presence{
+    [self showAlertWithTitle:@"收到加为好友的请求" andMessage:[NSString stringWithFormat:@"%@发来加好友的请求", [[presence from] full]]];
+}
+
 #pragma mark - GetIQ
 /**
  * Delegate method to receive incoming IQ stanzas.

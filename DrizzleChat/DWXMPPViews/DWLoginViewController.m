@@ -55,8 +55,6 @@
     NSString *passWord = [self.textPassWord text];
     
     [[DWXMPP_Core sharedManager] loginWithUserName:userName andPassWord:passWord];
-    
-//    [[DWXMPP_Core sharedManager] registerXMPP];
 }
 
 - (void)didLogin:(NSNotification *)notification{
@@ -82,8 +80,8 @@
         [HUD hide:YES afterDelay:1.0];
         
         DWFriendListViewController *friendListView = [[DWFriendListViewController alloc] initWithStyle:UITableViewStyleGrouped];
-        [self presentViewController:friendListView animated:NO completion:nil];
-//        [self.navigationController pushViewController:friendListView animated:YES];
+//        [self presentViewController:friendListView animated:NO completion:nil];
+        [self.navigationController pushViewController:friendListView animated:YES];
     }
 }
 

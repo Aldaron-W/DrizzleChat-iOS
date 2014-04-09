@@ -23,17 +23,19 @@
     return self;
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+    [self.navigationItem setHidesBackButton:YES];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    [self.navigationController.navigationItem setBackBarButtonItem:nil];
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)didReceiveMemoryWarning
@@ -105,6 +107,11 @@
     XMPPUserCoreDataStorageObject *user = [[self fetchedResultsController] objectAtIndexPath:indexPath];
     
     [[DWXMPP_Core sharedManager] sendMessage:@"你好" andReciver:user.jid];
+//    XMPPvCardTemp *myvCardTemp =  [[[[DWXMPP_Core sharedManager] xmppvCard] xmppvCardTempModule] myvCardTemp];
+//    NSString *str = [myvCardTemp nickname];
+    
+    DWUserInfoViewController *userInfoView = [[DWUserInfoViewController alloc] initWithUserJID:user.jid];
+    [self.navigationController pushViewController:userInfoView animated:YES];
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

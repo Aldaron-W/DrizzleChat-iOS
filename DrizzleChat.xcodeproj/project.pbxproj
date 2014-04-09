@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		F51A749518EE64EA0021BFC2 /* DWLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F51A749218EE64EA0021BFC2 /* DWLoginViewController.xib */; };
 		F51A749618EE64EA0021BFC2 /* DWLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F51A749318EE64EA0021BFC2 /* DWLoginViewController.m */; };
+		F55FA21018F4E2220080D6A2 /* DWUserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F55FA20E18F4E2220080D6A2 /* DWUserInfoViewController.m */; };
+		F55FA21118F4E2220080D6A2 /* DWUserInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F55FA20F18F4E2220080D6A2 /* DWUserInfoViewController.xib */; };
 		F57B49C318C6F8400016D401 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F57B49C218C6F8400016D401 /* Foundation.framework */; };
 		F57B49C518C6F8400016D401 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F57B49C418C6F8400016D401 /* CoreGraphics.framework */; };
 		F57B49C718C6F8400016D401 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F57B49C618C6F8400016D401 /* UIKit.framework */; };
@@ -175,6 +177,9 @@
 		F51A749218EE64EA0021BFC2 /* DWLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = DWLoginViewController.xib; path = DWXMPPViews/DWLoginViewController.xib; sourceTree = "<group>"; };
 		F51A749318EE64EA0021BFC2 /* DWLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWLoginViewController.m; path = DWXMPPViews/DWLoginViewController.m; sourceTree = "<group>"; };
 		F51A749418EE64EA0021BFC2 /* DWLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWLoginViewController.h; path = DWXMPPViews/DWLoginViewController.h; sourceTree = "<group>"; };
+		F55FA20D18F4E2220080D6A2 /* DWUserInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWUserInfoViewController.h; path = DWXMPPViews/DWUserInfoViewController.h; sourceTree = "<group>"; };
+		F55FA20E18F4E2220080D6A2 /* DWUserInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWUserInfoViewController.m; path = DWXMPPViews/DWUserInfoViewController.m; sourceTree = "<group>"; };
+		F55FA20F18F4E2220080D6A2 /* DWUserInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = DWUserInfoViewController.xib; path = DWXMPPViews/DWUserInfoViewController.xib; sourceTree = "<group>"; };
 		F57B49BF18C6F8400016D401 /* DrizzleChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrizzleChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F57B49C218C6F8400016D401 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F57B49C418C6F8400016D401 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -1398,6 +1403,9 @@
 				F51A749418EE64EA0021BFC2 /* DWLoginViewController.h */,
 				F51A749318EE64EA0021BFC2 /* DWLoginViewController.m */,
 				F51A749218EE64EA0021BFC2 /* DWLoginViewController.xib */,
+				F55FA20D18F4E2220080D6A2 /* DWUserInfoViewController.h */,
+				F55FA20E18F4E2220080D6A2 /* DWUserInfoViewController.m */,
+				F55FA20F18F4E2220080D6A2 /* DWUserInfoViewController.xib */,
 			);
 			name = DWXMPPViews;
 			sourceTree = "<group>";
@@ -1502,6 +1510,7 @@
 			files = (
 				F57B49DB18C6F8410016D401 /* Images.xcassets in Resources */,
 				F51A749518EE64EA0021BFC2 /* DWLoginViewController.xib in Resources */,
+				F55FA21118F4E2220080D6A2 /* DWUserInfoViewController.xib in Resources */,
 				F5A1858C18D965B700F13681 /* build-libidn.sh in Resources */,
 				F57B51A918C6FAF80016D401 /* README.txt in Resources */,
 				F57B53CE18C6FAF90016D401 /* build-libidn.sh in Resources */,
@@ -1585,6 +1594,7 @@
 				F57B513718C6FAF80016D401 /* NSXMLElement+XMPP.m in Sources */,
 				F57B516518C6FAF80016D401 /* XMPPvCardAvatarCoreDataStorageObject.m in Sources */,
 				F57B517718C6FAF80016D401 /* XMPPMessage+XEP_0066.m in Sources */,
+				F55FA21018F4E2220080D6A2 /* DWUserInfoViewController.m in Sources */,
 				F57B518318C6FAF80016D401 /* XMPPMessageArchiving.xcdatamodeld in Sources */,
 				F57B519918C6FAF80016D401 /* NSXMLElement+XEP_0335.m in Sources */,
 				F57B518F18C6FAF80016D401 /* XMPPPing.m in Sources */,

@@ -51,6 +51,8 @@
 
 #import "XMPPvCardTempModule.h"
 #import "XMPPvCardCoreDataStorage.h"
+#import "XMPPvCardCoreDataStorageObject.h"
+#import "XMPPvCardTemp.h"
 
 #import "XMPPPubSub.h"
 
