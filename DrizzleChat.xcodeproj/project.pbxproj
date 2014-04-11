@@ -1806,8 +1806,7 @@
 				INFOPLIST_FILE = "DrizzleChat/DrizzleChat-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/mitbbs/Desktop/DrizzleChat/DrizzleChat-iOS/DrizzleChat/Libs/XMPPFramework/Vendor/libidn",
-					"/Users/mitbbs/百度云同步盘/Development/Drizzle\\ Projects/XMPP/DrizzleChat-iOS/DrizzleChat/Libs/XMPPFramework/Vendor/libidn",
+					"$(SRCROOT)/DrizzleChat/Libs/XMPPFramework/Vendor/libidn",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -1824,8 +1823,7 @@
 				INFOPLIST_FILE = "DrizzleChat/DrizzleChat-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/mitbbs/Desktop/DrizzleChat/DrizzleChat-iOS/DrizzleChat/Libs/XMPPFramework/Vendor/libidn",
-					"/Users/mitbbs/百度云同步盘/Development/Drizzle\\ Projects/XMPP/DrizzleChat-iOS/DrizzleChat/Libs/XMPPFramework/Vendor/libidn",
+					"$(SRCROOT)/DrizzleChat/Libs/XMPPFramework/Vendor/libidn",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
