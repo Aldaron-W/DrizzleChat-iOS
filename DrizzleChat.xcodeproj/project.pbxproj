@@ -11,6 +11,8 @@
 		F51A749618EE64EA0021BFC2 /* DWLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F51A749318EE64EA0021BFC2 /* DWLoginViewController.m */; };
 		F55FA21018F4E2220080D6A2 /* DWUserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F55FA20E18F4E2220080D6A2 /* DWUserInfoViewController.m */; };
 		F55FA21118F4E2220080D6A2 /* DWUserInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F55FA20F18F4E2220080D6A2 /* DWUserInfoViewController.xib */; };
+		F55FA21A18F628D20080D6A2 /* DWSubscribeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F55FA21818F628D20080D6A2 /* DWSubscribeViewController.m */; };
+		F55FA21B18F628D20080D6A2 /* DWSubscribeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F55FA21918F628D20080D6A2 /* DWSubscribeViewController.xib */; };
 		F57B49C318C6F8400016D401 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F57B49C218C6F8400016D401 /* Foundation.framework */; };
 		F57B49C518C6F8400016D401 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F57B49C418C6F8400016D401 /* CoreGraphics.framework */; };
 		F57B49C718C6F8400016D401 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F57B49C618C6F8400016D401 /* UIKit.framework */; };
@@ -18,7 +20,6 @@
 		F57B49CF18C6F8400016D401 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F57B49CE18C6F8400016D401 /* main.m */; };
 		F57B49D318C6F8400016D401 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F57B49D218C6F8400016D401 /* AppDelegate.m */; };
 		F57B49D618C6F8410016D401 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F57B49D418C6F8410016D401 /* Main.storyboard */; };
-		F57B49D918C6F8410016D401 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F57B49D818C6F8410016D401 /* ViewController.m */; };
 		F57B49DB18C6F8410016D401 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F57B49DA18C6F8410016D401 /* Images.xcassets */; };
 		F57B49E218C6F8410016D401 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F57B49E118C6F8410016D401 /* XCTest.framework */; };
 		F57B49E318C6F8410016D401 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F57B49C218C6F8400016D401 /* Foundation.framework */; };
@@ -180,6 +181,9 @@
 		F55FA20D18F4E2220080D6A2 /* DWUserInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWUserInfoViewController.h; path = DWXMPPViews/DWUserInfoViewController.h; sourceTree = "<group>"; };
 		F55FA20E18F4E2220080D6A2 /* DWUserInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWUserInfoViewController.m; path = DWXMPPViews/DWUserInfoViewController.m; sourceTree = "<group>"; };
 		F55FA20F18F4E2220080D6A2 /* DWUserInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = DWUserInfoViewController.xib; path = DWXMPPViews/DWUserInfoViewController.xib; sourceTree = "<group>"; };
+		F55FA21718F628D20080D6A2 /* DWSubscribeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWSubscribeViewController.h; path = DWXMPPViews/DWSubscribeViewController.h; sourceTree = "<group>"; };
+		F55FA21818F628D20080D6A2 /* DWSubscribeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWSubscribeViewController.m; path = DWXMPPViews/DWSubscribeViewController.m; sourceTree = "<group>"; };
+		F55FA21918F628D20080D6A2 /* DWSubscribeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = DWSubscribeViewController.xib; path = DWXMPPViews/DWSubscribeViewController.xib; sourceTree = "<group>"; };
 		F57B49BF18C6F8400016D401 /* DrizzleChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrizzleChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F57B49C218C6F8400016D401 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F57B49C418C6F8400016D401 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -191,8 +195,6 @@
 		F57B49D118C6F8400016D401 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F57B49D218C6F8400016D401 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		F57B49D518C6F8410016D401 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		F57B49D718C6F8410016D401 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		F57B49D818C6F8410016D401 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		F57B49DA18C6F8410016D401 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		F57B49E018C6F8410016D401 /* DrizzleChatTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DrizzleChatTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F57B49E118C6F8410016D401 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -551,8 +553,6 @@
 				F57B49D118C6F8400016D401 /* AppDelegate.h */,
 				F57B49D218C6F8400016D401 /* AppDelegate.m */,
 				F57B49D418C6F8410016D401 /* Main.storyboard */,
-				F57B49D718C6F8410016D401 /* ViewController.h */,
-				F57B49D818C6F8410016D401 /* ViewController.m */,
 				F57B49DA18C6F8410016D401 /* Images.xcassets */,
 				F57B49C918C6F8400016D401 /* Supporting Files */,
 			);
@@ -1406,6 +1406,9 @@
 				F55FA20D18F4E2220080D6A2 /* DWUserInfoViewController.h */,
 				F55FA20E18F4E2220080D6A2 /* DWUserInfoViewController.m */,
 				F55FA20F18F4E2220080D6A2 /* DWUserInfoViewController.xib */,
+				F55FA21718F628D20080D6A2 /* DWSubscribeViewController.h */,
+				F55FA21818F628D20080D6A2 /* DWSubscribeViewController.m */,
+				F55FA21918F628D20080D6A2 /* DWSubscribeViewController.xib */,
 			);
 			name = DWXMPPViews;
 			sourceTree = "<group>";
@@ -1515,6 +1518,7 @@
 				F57B51A918C6FAF80016D401 /* README.txt in Resources */,
 				F57B53CE18C6FAF90016D401 /* build-libidn.sh in Resources */,
 				F57B49CD18C6F8400016D401 /* InfoPlist.strings in Resources */,
+				F55FA21B18F628D20080D6A2 /* DWSubscribeViewController.xib in Resources */,
 				F57B49D618C6F8410016D401 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1535,7 +1539,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F57B513C18C6FAF80016D401 /* XMPPMessage.m in Sources */,
-				F57B49D918C6F8410016D401 /* ViewController.m in Sources */,
 				F57B517518C6FAF80016D401 /* TURNSocket.m in Sources */,
 				F57B514518C6FAF80016D401 /* XMPPReconnect.m in Sources */,
 				F57B51A818C6FAF80016D401 /* DispatchQueueLogFormatter.m in Sources */,
@@ -1584,6 +1587,7 @@
 				F57B515318C6FAF80016D401 /* XMPPIQ+LastActivity.m in Sources */,
 				F5FDA5A918D2FDD600658E7D /* DWXMPP_Core.m in Sources */,
 				F57B513D18C6FAF80016D401 /* XMPPModule.m in Sources */,
+				F55FA21A18F628D20080D6A2 /* DWSubscribeViewController.m in Sources */,
 				F57B518C18C6FAF80016D401 /* XMPPMessageDeliveryReceipts.m in Sources */,
 				F57B514818C6FAF80016D401 /* XMPPRoster.xcdatamodel in Sources */,
 				F57B519318C6FAF80016D401 /* XEP_0223.m in Sources */,
