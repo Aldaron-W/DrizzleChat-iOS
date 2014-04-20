@@ -18,6 +18,10 @@
 		<string>git://github.com/erikdoe/ocmock</string>
 		<key>39C8092F-942D-45BB-BEBB-7E3FD00A6B5E</key>
 		<string>https://github.com/DrizzleWang-Z/MBProgressHUD.git</string>
+		<key>4F72559A-F3A0-4986-ACA1-39AABDEF0816</key>
+		<string>https://github.com/DrizzleWang-Z/MessagesTableViewController.git</string>
+		<key>DCDD6FD8-6810-49EF-84F7-816CE4539E38</key>
+		<string>https://github.com/jessesquires/JSQSystemSoundPlayer.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>DrizzleChat.xcodeproj/project.xcworkspace</string>
@@ -31,6 +35,10 @@
 		<string>../../DrizzleChat/Libs/XMPPFramework/Vendor/facebook-ios-sdk/vendor/OCMock</string>
 		<key>39C8092F-942D-45BB-BEBB-7E3FD00A6B5E</key>
 		<string>../../DrizzleChat/MBProgressHUD</string>
+		<key>4F72559A-F3A0-4986-ACA1-39AABDEF0816</key>
+		<string>../../../MessagesTableViewController</string>
+		<key>DCDD6FD8-6810-49EF-84F7-816CE4539E38</key>
+		<string>../../../JSQSystemSoundPlayer</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>file:///Users/mitbbs/%E7%99%BE%E5%BA%A6%E4%BA%91%E5%90%8C%E6%AD%A5%E7%9B%98/Development/Drizzle%20Projects/XMPP/DrizzleChat-iOS/DrizzleChat.xcodeproj/project.xcworkspace/</string>
@@ -52,9 +60,25 @@
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>DCDD6FD8-6810-49EF-84F7-816CE4539E38</string>
+			<key>IDESourceControlWCCName</key>
+			<string>JSQSystemSoundPlayer</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
 			<string>39C8092F-942D-45BB-BEBB-7E3FD00A6B5E</string>
 			<key>IDESourceControlWCCName</key>
 			<string>MBProgressHUD</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>4F72559A-F3A0-4986-ACA1-39AABDEF0816</string>
+			<key>IDESourceControlWCCName</key>
+			<string>MessagesTableViewController</string>
 		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>

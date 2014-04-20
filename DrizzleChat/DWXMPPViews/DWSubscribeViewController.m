@@ -38,4 +38,9 @@
 - (IBAction)subscribeUser:(id)sender {
     [[[DWXMPP_Core sharedManager] xmppRoster] subscribePresenceToUser:[XMPPJID jidWithString:self.userName_Text.text]];
 }
+
+- (IBAction)hidKeyBoard:(id)sender {
+    [self.userName_Text resignFirstResponder];
+    [self.nickName_Text resignFirstResponder];
+}
 @end

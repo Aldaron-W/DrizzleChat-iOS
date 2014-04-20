@@ -256,7 +256,7 @@
         //登陆
         if (![[self xmppStream] authenticateWithPassword:self.passWord error:&error])
         {
-            [self showAlertWithTitle:@"Error authenticating" andMessage:@"验证密码失败"];
+            [[DWXMPP_Logging sharedDWXMPP_Logging] showAlertWithTitle:@"Error authenticating" andMessage:@"验证密码失败"];
             /** DWXMPP验证密码失败的Notification */
             [[NSNotificationCenter defaultCenter] postNotificationName:DWXMPP_NOTIFICATION_AUTNENTICATE_FAULT object:error];
         }
@@ -298,6 +298,11 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:DWXMPP_NOTIFICATION_AUTNENTICATE_FAULT object:error];
 }
 
+#pragma mark SendPresence
+- (void)xmppStream:(XMPPStream *)sender didSendPresence:(XMPPPresence *)presence{
+    
+}
+
 #pragma mark GetPresence
 - (void)xmppStream:(XMPPStream *)sender didReceivePresence:(XMPPPresence *)presence
 {
@@ -315,10 +320,7 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:DWXMPP_NOTIFICATION_REGISTER_FAULT object:error];
 }
 
-#pragma mark - RosterDelegate
-- (void)xmppRoster:(XMPPRoster *)sender didReceivePresenceSubscriptionRequest:(XMPPPresence *)presence{
-    [self showAlertWithTitle:@"收到加为好友的请求" andMessage:[NSString stringWithFormat:@"%@发来加好友的请求", [[presence from] full]]];
-}
+
 
 #pragma mark - GetIQ
 /**
@@ -397,6 +399,13 @@
     return _xmppRoster;
 }
 
+- (NSMutableDictionary *)subscriptionRequests{
+    if (!_subscriptionRequests) {
+        _subscriptionRequests = [[NSMutableDictionary alloc] initWithCapacity:3];
+    }
+    return _subscriptionRequests;
+}
+
 #pragma mark XMPP_vCard(XEP-054)
 // Setup vCard support
 //
@@ -469,14 +478,4 @@
 #pragma mark - Setter
 #pragma mark UserData
 
-
-#pragma mark - OtherMethods
-- (void)showAlertWithTitle:(NSString *)strTitle andMessage:(NSString *)strMessage{
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:strTitle
-                                                        message:strMessage
-                                                       delegate:nil
-                                              cancelButtonTitle:@"Ok"
-                                              otherButtonTitles:nil];
-    [alertView show];
-}
 @end

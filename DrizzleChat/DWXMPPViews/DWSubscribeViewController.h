@@ -11,7 +11,9 @@
 
 @interface DWSubscribeViewController : UIViewController
 @property (strong, nonatomic) IBOutlet UITextField *userName_Text;
+@property (weak, nonatomic) IBOutlet UITextField *nickName_Text;
 @property (strong, nonatomic) IBOutlet UIButton *subscribe_Button;
 - (IBAction)subscribeUser:(id)sender;
+- (IBAction)hidKeyBoard:(id)sender;
 
 @end

@@ -9,7 +9,12 @@
 #ifndef DrizzleChat_DWXMPP_Header_h
 #define DrizzleChat_DWXMPP_Header_h
 
-//#import "DWXMPP_Core.h"
+#import "DWXMPP_Core.h"
+#import "DWXMPP_Logging.h"
+////XMPPRoster处理类
+//#import "DWXMPP_Core+DWXMPP_Roster.h"
+////DWXMPP调试处理类
+//#import "DWXMPP_Core+DWXMPP_Logging.h"
 
 #pragma mark - ServerData
 #define DrizzleChat_XMPP_IP @"115.28.228.212"

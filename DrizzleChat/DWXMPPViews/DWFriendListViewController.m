@@ -25,6 +25,26 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [self.navigationItem setHidesBackButton:YES];
+    
+    //好友申请列表
+    UIButton *subscribeList = [UIButton buttonWithType:UIButtonTypeCustom];
+    [subscribeList setFrame:CGRectMake(0, 0, 80, 30)];
+    [subscribeList addTarget:self action:@selector(jumpToSubscribView) forControlEvents:UIControlEventTouchUpInside];
+    [subscribeList setTitle:@"添加好友列表" forState:UIControlStateNormal];
+    [subscribeList setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    UIBarButtonItem *liftButton = [[UIBarButtonItem alloc] initWithCustomView:subscribeList];
+    
+    self.navigationItem.rightBarButtonItem = liftButton;
+    
+    //添加好友按钮
+    UIButton *subscribe = [UIButton buttonWithType:UIButtonTypeCustom];
+    [subscribe setFrame:CGRectMake(0, 0, 80, 30)];
+    [subscribe addTarget:self action:@selector(jumpToSubscribView) forControlEvents:UIControlEventTouchUpInside];
+    [subscribe setTitle:@"添加好友" forState:UIControlStateNormal];
+    [subscribe setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    UIBarButtonItem *subscribeButton = [[UIBarButtonItem alloc] initWithCustomView:subscribe];
+    
+    self.navigationItem.rightBarButtonItem = subscribeButton;
 }
 
 - (void)viewDidLoad
@@ -35,7 +55,6 @@
     // self.clearsSelectionOnViewWillAppear = NO;
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)didReceiveMemoryWarning
@@ -106,7 +125,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     XMPPUserCoreDataStorageObject *user = [[self fetchedResultsController] objectAtIndexPath:indexPath];
     
-    [[DWXMPP_Core sharedManager] sendMessage:@"你好" andReciver:user.jid];
+    [[DWXMPP_Core sharedManager] sendMessage:@"再见" andReciver:user.jid];
+    [[[DWXMPP_Core sharedManager] xmppRoster] unsubscribePresenceFromUser:user.jid];
+    [[[DWXMPP_Core sharedManager] xmppRoster] removeUser:user.jid];
 //    XMPPvCardTemp *myvCardTemp =  [[[[DWXMPP_Core sharedManager] xmppvCard] xmppvCardTempModule] myvCardTemp];
 //    NSString *str = [myvCardTemp nickname];
     
@@ -181,6 +202,11 @@
 		else
 			cell.imageView.image = [UIImage imageNamed:@"defaultPerson"];
 	}
+}
+#pragma mark - ChangeView
+- (void)jumpToSubscribView{
+    DWSubscribeViewController *subscribe = [[DWSubscribeViewController alloc] initWithNibName:@"DWSubscribeViewController" bundle:nil];
+    [self.navigationController pushViewController:subscribe animated:YES];
 }
 
 

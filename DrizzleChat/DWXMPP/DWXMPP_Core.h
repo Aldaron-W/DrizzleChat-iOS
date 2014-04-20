@@ -8,7 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import "DWXMPP_Header.h"
+//#import "DWXMPP_Core+DWXMPP_Logging.h"
+//#import "DWXMPP_Core+DWXMPP_Roster.h"
 #import "XMPPFramework.h"
+
 
 #pragma mark - DWXMPP_Core
 typedef NS_ENUM(NSInteger, XMPPMessageType) {
@@ -34,6 +37,7 @@ typedef NS_ENUM(NSInteger, XMPPMessageType) {
 @property (nonatomic, strong, readonly) XMPPRoster *xmppRoster;
 /** XMPP花名册存储对象（CoreData） */
 @property (nonatomic, strong, readonly) XMPPRosterCoreDataStorage *xmppRosterStorage_CoreData;
+@property (nonatomic, strong) NSMutableDictionary *subscriptionRequests;
 
 #pragma mark XMPP_vCard(XEP-054)
 /** XMPP名片管理对象的工厂函数 */
