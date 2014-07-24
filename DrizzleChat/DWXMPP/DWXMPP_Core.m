@@ -156,15 +156,16 @@
 }
 
 - (void)registerXMPPUser{
-    [self initXMPPFramework];
-    [self.xmppStream setMyJID:[XMPPJID jidWithString:self.userName resource:self.resource]];
-    isRegister = YES;
-    
-    NSError *error = nil;
-	if (![self.xmppStream connectWithTimeout:30 error:&error]){
-        /** DWXMPP连接服务器失败的Notification */
-        [[NSNotificationCenter defaultCenter] postNotificationName:DWXMPP_NOTIFICATION_CONNECT_FAULT object:error];
-	}
+    if ([self initXMPPFramework]) {
+        [self.xmppStream setMyJID:[XMPPJID jidWithString:self.userName resource:self.resource]];
+        isRegister = YES;
+        
+        NSError *error = nil;
+        if (![self.xmppStream connectWithTimeout:30 error:&error]){
+            /** DWXMPP连接服务器失败的Notification */
+            [[NSNotificationCenter defaultCenter] postNotificationName:DWXMPP_NOTIFICATION_CONNECT_FAULT object:error];
+        }
+    }
 }
 
 #pragma mark - OnLine
@@ -222,17 +223,14 @@
 	return [self.xmppRosterStorage_CoreData mainThreadManagedObjectContext];
 }
 
-- (NSManagedObjectContext *)managedObjectContext_capabilities{
+- (NSManagedObjectContext *)managedObjectContext_vCard{
 	return [self.xmppvCardStorage_CoreData mainThreadManagedObjectContext];
 }
 
-#pragma mark - MessageController
-- (void)sendMessage:(NSString *)message andReciver:(XMPPJID *)reciverJID{
-    XMPPMessage *sendMessage = [[XMPPMessage alloc] initWithType:@"chat" to:reciverJID];
-    [sendMessage addBody:message];
-    
-    [self.xmppStream sendElement:sendMessage];
+- (NSManagedObjectContext *)managedObjectContext_Message{
+    return [self.xmppMessageArchivngStorage_CoreData mainThreadManagedObjectContext];
 }
+
 
 #pragma mark - XMPPStreamDelegate
 #pragma mark Connect（连接服务器）
@@ -460,7 +458,6 @@
     if (!_xmppMessageArchiving) {
         self.xmppMessageArchivngStorage_CoreData = [XMPPMessageArchivingCoreDataStorage sharedInstance];
         _xmppMessageArchiving = [[XMPPMessageArchiving alloc] initWithMessageArchivingStorage:self.xmppMessageArchivngStorage_CoreData];
-        
         [_xmppMessageArchiving activate:self.xmppStream];
     }
     return _xmppMessageArchiving;

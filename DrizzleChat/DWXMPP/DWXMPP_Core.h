@@ -7,9 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "DWXMPP_Header.h"
-//#import "DWXMPP_Core+DWXMPP_Logging.h"
-//#import "DWXMPP_Core+DWXMPP_Roster.h"
+
+#import "DWXMPP_MetaData.h"
+#import "DWXMPP_Logging.h"
 #import "XMPPFramework.h"
 
 
@@ -69,11 +69,11 @@ typedef NS_ENUM(NSInteger, XMPPMessageType) {
 #pragma mark - Register
 - (void)registerWithUserName:(NSString *)userName andPassWord:(NSString *)passWord;
 
-#pragma mark - MessageController
-- (void)sendMessage:(NSString *)message andReciver:(XMPPJID *)reciverJID;
+//#pragma mark - MessageController
+//- (void)sendMessage:(NSString *)message andReciver:(XMPPJID *)reciverJID;
 
 #pragma mark -  Core Data
 - (NSManagedObjectContext *)managedObjectContext_roster;
-- (NSManagedObjectContext *)managedObjectContext_capabilities;
+- (NSManagedObjectContext *)managedObjectContext_Message;
 
 @end

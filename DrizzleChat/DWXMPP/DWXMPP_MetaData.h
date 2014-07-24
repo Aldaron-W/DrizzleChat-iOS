@@ -1,20 +1,10 @@
 //
-//  DWXMPP_Header.h
+//  DWXMPP_MetaData.h
 //  DrizzleChat
 //
-//  Created by mitbbs on 14-3-14.
+//  Created by Private on 14/7/24.
 //  Copyright (c) 2014年 DrizzleWang. All rights reserved.
 //
-
-#ifndef DrizzleChat_DWXMPP_Header_h
-#define DrizzleChat_DWXMPP_Header_h
-
-#import "DWXMPP_Core.h"
-#import "DWXMPP_Logging.h"
-////XMPPRoster处理类
-//#import "DWXMPP_Core+DWXMPP_Roster.h"
-////DWXMPP调试处理类
-//#import "DWXMPP_Core+DWXMPP_Logging.h"
 
 #pragma mark - ServerData
 #define DrizzleChat_XMPP_IP @"115.28.228.212"
@@ -44,4 +34,4 @@
 #define DWXMPP_NOTIFICATION_REGISTER_SUCCEED @"DWXMPP_Register_Succeed"
 /** DWXMPP注册失败的Notification */
 #define DWXMPP_NOTIFICATION_REGISTER_FAULT @"DWXMPP_Register_Fault"
-#endif
+//#endif

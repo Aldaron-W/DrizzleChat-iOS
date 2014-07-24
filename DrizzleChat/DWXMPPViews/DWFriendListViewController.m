@@ -9,7 +9,6 @@
 #import "DWFriendListViewController.h"
 
 @interface DWFriendListViewController ()
-
 @end
 
 @implementation DWFriendListViewController
@@ -125,14 +124,19 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     XMPPUserCoreDataStorageObject *user = [[self fetchedResultsController] objectAtIndexPath:indexPath];
     
-    [[DWXMPP_Core sharedManager] sendMessage:@"再见" andReciver:user.jid];
-    [[[DWXMPP_Core sharedManager] xmppRoster] unsubscribePresenceFromUser:user.jid];
-    [[[DWXMPP_Core sharedManager] xmppRoster] removeUser:user.jid];
+//    [[DWXMPP_Core sharedManager] sendMessage:@"再见" andReciver:user.jid];
+//    [[[DWXMPP_Core sharedManager] xmppRoster] unsubscribePresenceFromUser:user.jid];
+//    [[[DWXMPP_Core sharedManager] xmppRoster] removeUser:user.jid];
 //    XMPPvCardTemp *myvCardTemp =  [[[[DWXMPP_Core sharedManager] xmppvCard] xmppvCardTempModule] myvCardTemp];
 //    NSString *str = [myvCardTemp nickname];
     
-    DWUserInfoViewController *userInfoView = [[DWUserInfoViewController alloc] initWithUserJID:user.jid];
-    [self.navigationController pushViewController:userInfoView animated:YES];
+//    DWUserInfoViewController *userInfoView = [[DWUserInfoViewController alloc] initWithUserJID:user.jid];
+//    [self.navigationController pushViewController:userInfoView animated:YES];
+    
+    DWChatRoomViewController *chatRoomView = [DWChatRoomViewController messagesViewController];
+    [chatRoomView setFriendJID:user.jid];
+    
+    [self.navigationController pushViewController:chatRoomView animated:YES];
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -145,8 +149,7 @@
 	{
 		NSManagedObjectContext *moc = [[DWXMPP_Core sharedManager] managedObjectContext_roster];
 		
-		NSEntityDescription *entity = [NSEntityDescription entityForName:@"XMPPUserCoreDataStorageObject"
-		                                          inManagedObjectContext:moc];
+		NSEntityDescription *entity = [NSEntityDescription entityForName:@"XMPPUserCoreDataStorageObject" inManagedObjectContext:moc];
 		
 		NSSortDescriptor *sd1 = [[NSSortDescriptor alloc] initWithKey:@"sectionNum" ascending:YES];
 		NSSortDescriptor *sd2 = [[NSSortDescriptor alloc] initWithKey:@"displayName" ascending:YES];
@@ -173,6 +176,10 @@
 	}
 	
 	return fetchedResultsController;
+}
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath{
+    
 }
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller

@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "DWXMPP_Core.h"
+#import "DWXMPP_Header.h"
 #import "DWUserInfoViewController.h"
 #import "DWSubscribeViewController.h"
+#import "DWChatRoomViewController.h"
 
 @interface DWFriendListViewController : UITableViewController<NSFetchedResultsControllerDelegate>{
     NSFetchedResultsController *fetchedResultsController;
