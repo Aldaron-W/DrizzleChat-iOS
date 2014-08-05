@@ -89,6 +89,13 @@
 			remoteGlobalIDString = 885D592818CBD13D00D77BB3;
 			remoteInfo = JSQMessages;
 		};
+		A09B9E851980D345009097BC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 885D592118CBD13D00D77BB3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 885D592818CBD13D00D77BB3;
+			remoteInfo = JSQMessages;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -484,6 +491,7 @@
 			dependencies = (
 				885D595318CBD13D00D77BB3 /* PBXTargetDependency */,
 				A09B9E841980D345009097BC /* PBXTargetDependency */,
+				A09B9E861980D345009097BC /* PBXTargetDependency */,
 			);
 			name = JSQMessagesTests;
 			productName = JSQMessagesTests;
@@ -501,7 +509,7 @@
 				ORGANIZATIONNAME = "Hexed Bits";
 				TargetAttributes = {
 					885D592818CBD13D00D77BB3 = {
-						DevelopmentTeam = 5VRJU68BZ5;
+						DevelopmentTeam = T37W5W346T;
 					};
 					885D594C18CBD13D00D77BB3 = {
 						TestTargetID = 885D592818CBD13D00D77BB3;
@@ -627,6 +635,11 @@
 			isa = PBXTargetDependency;
 			target = 885D592818CBD13D00D77BB3 /* JSQMessages */;
 			targetProxy = A09B9E831980D345009097BC /* PBXContainerItemProxy */;
+		};
+		A09B9E861980D345009097BC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 885D592818CBD13D00D77BB3 /* JSQMessages */;
+			targetProxy = A09B9E851980D345009097BC /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

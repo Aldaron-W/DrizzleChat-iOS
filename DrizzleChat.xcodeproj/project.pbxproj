@@ -62,7 +62,6 @@
 		A09B9F0C1980D6DD009097BC /* JSQMessagesTypingIndicatorFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = A09B9EDB1980D6DD009097BC /* JSQMessagesTypingIndicatorFooterView.m */; };
 		A09B9F0D1980D6DD009097BC /* JSQMessagesTypingIndicatorFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A09B9EDC1980D6DD009097BC /* JSQMessagesTypingIndicatorFooterView.xib */; };
 		A09B9F101980D725009097BC /* DWChatRoomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A09B9F0F1980D725009097BC /* DWChatRoomViewController.m */; };
-		A09B9F121980E967009097BC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A09B9F111980E967009097BC /* Images.xcassets */; };
 		F51A749518EE64EA0021BFC2 /* DWLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F51A749218EE64EA0021BFC2 /* DWLoginViewController.xib */; };
 		F51A749618EE64EA0021BFC2 /* DWLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F51A749318EE64EA0021BFC2 /* DWLoginViewController.m */; };
 		F55FA21018F4E2220080D6A2 /* DWUserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F55FA20E18F4E2220080D6A2 /* DWUserInfoViewController.m */; };
@@ -319,7 +318,6 @@
 		A09B9EDC1980D6DD009097BC /* JSQMessagesTypingIndicatorFooterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JSQMessagesTypingIndicatorFooterView.xib; sourceTree = "<group>"; };
 		A09B9F0E1980D725009097BC /* DWChatRoomViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWChatRoomViewController.h; path = DWXMPPViews/DWChatRoomViewController.h; sourceTree = "<group>"; };
 		A09B9F0F1980D725009097BC /* DWChatRoomViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWChatRoomViewController.m; path = DWXMPPViews/DWChatRoomViewController.m; sourceTree = "<group>"; };
-		A09B9F111980E967009097BC /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Libs/JSQMessagesViewController/JSQMessagesDemo/Images.xcassets; sourceTree = "<group>"; };
 		F51A749218EE64EA0021BFC2 /* DWLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = DWLoginViewController.xib; path = DWXMPPViews/DWLoginViewController.xib; sourceTree = "<group>"; };
 		F51A749318EE64EA0021BFC2 /* DWLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWLoginViewController.m; path = DWXMPPViews/DWLoginViewController.m; sourceTree = "<group>"; };
 		F51A749418EE64EA0021BFC2 /* DWLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWLoginViewController.h; path = DWXMPPViews/DWLoginViewController.h; sourceTree = "<group>"; };
@@ -935,7 +933,6 @@
 		F57B49F718C6F8550016D401 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
-				A09B9F111980E967009097BC /* Images.xcassets */,
 				A09B9E871980D6DD009097BC /* JSQMessagesViewController */,
 				A09B9E7019808EB1009097BC /* JSQSystemSoundPlayer */,
 				F5A185E418D97BB900F13681 /* MBProgressHUD */,
@@ -1886,7 +1883,6 @@
 				F5A1858C18D965B700F13681 /* build-libidn.sh in Resources */,
 				A09B9EE21980D6DD009097BC /* bubble_min_tailless@2x.png in Resources */,
 				A09B9EEC1980D6DD009097BC /* typing@2x.png in Resources */,
-				A09B9F121980E967009097BC /* Images.xcassets in Resources */,
 				A09B9EEB1980D6DD009097BC /* typing.png in Resources */,
 				A09B9F0D1980D6DD009097BC /* JSQMessagesTypingIndicatorFooterView.xib in Resources */,
 				A09B9EEA1980D6DD009097BC /* camera@2x.png in Resources */,
@@ -2221,6 +2217,7 @@
 					/usr/include/libxml2,
 				);
 				INFOPLIST_FILE = "DrizzleChat/DrizzleChat-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/DrizzleChat/Libs/XMPPFramework/Vendor/libidn",
@@ -2241,6 +2238,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DrizzleChat/DrizzleChat-Prefix.pch";
 				INFOPLIST_FILE = "DrizzleChat/DrizzleChat-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/DrizzleChat/Libs/XMPPFramework/Vendor/libidn",

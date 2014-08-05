@@ -21,7 +21,22 @@
 }
 
 - (void)xmppStream:(XMPPStream *)sender didReceiveMessage:(XMPPMessage *)message{
-    
+    //程序运行在前台，消息正常显示
+    if ([[UIApplication sharedApplication] applicationState] == UIApplicationStateActive)
+    {
+        
+    }else{//如果程序在后台运行，收到消息以通知类型来显示
+        if (message.body) {
+            UILocalNotification *localNotification = [[UILocalNotification alloc] init];
+            localNotification.alertAction = @"Ok";
+            localNotification.fireDate = [NSDate new];
+            localNotification.timeZone=[NSTimeZone defaultTimeZone];
+            localNotification.alertBody = [NSString stringWithFormat:@"%@:%@",message.from.bare,message.body];//通知主体
+            localNotification.soundName = UILocalNotificationDefaultSoundName;//通知声音
+            localNotification.applicationIconBadgeNumber += 1;//标记数
+            [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];//发送通知
+        }
+    }
 }
 
 @end

@@ -75,13 +75,15 @@
     [self fetchedResultsController];
     
     for (XMPPMessageArchiving_Message_CoreDataObject *messageObj in [[[fetchedResultsController sections] firstObject] objects]) {
+        if (!messageObj.body) {
+            continue;
+        }
         if ([messageObj isOutgoing]) {
             [self.messages addObject:[[JSQMessage alloc] initWithText:messageObj.body sender:self.sender date:messageObj.timestamp]];
         }
         else{
             [self.messages addObject:[[JSQMessage alloc] initWithText:messageObj.body sender:messageObj.bareJidStr date:messageObj.timestamp]];
         }
-        
     }
 }
 
@@ -92,9 +94,7 @@
     [super viewDidLoad];
     
     self.title = @"JSQMessages";
-    
-    self.sender = @"Jesse Squires";
-    
+        
     [self setupTestModel];
     
     /**
@@ -420,14 +420,61 @@
     switch (type) {
         case NSFetchedResultsChangeInsert:{
             XMPPMessageArchiving_Message_CoreDataObject *message = (XMPPMessageArchiving_Message_CoreDataObject *)anObject;
-            if ([message isOutgoing]) {
-                [self.messages addObject:[[JSQMessage alloc] initWithText:message.body sender:self.sender date:message.timestamp]];
+            
+            NSString *messageBody = @"";
+            if (message.body) {
+                messageBody = message.body;
             }
             else{
-                [self.messages addObject:[[JSQMessage alloc] initWithText:message.body sender:message.bareJidStr date:message.timestamp]];
+                self.showTypingIndicator = YES;
+                return;
+            }
+            if ([message isOutgoing]) {
+                [self.messages addObject:[[JSQMessage alloc] initWithText:messageBody sender:self.sender date:message.timestamp]];
+            }
+            else{
+                [self.messages addObject:[[JSQMessage alloc] initWithText:messageBody sender:message.bareJidStr date:message.timestamp]];
             }
             
+            [self.collectionView.collectionViewLayout invalidateLayoutWithContext:[JSQMessagesCollectionViewFlowLayoutInvalidationContext context]];
             [self.collectionView reloadData];
+            
+            [self scrollToBottomAnimated:YES];
+            break;
+        }
+        case NSFetchedResultsChangeUpdate:{
+            XMPPMessageArchiving_Message_CoreDataObject *message = (XMPPMessageArchiving_Message_CoreDataObject *)anObject;
+            
+            NSString *messageBody = @"";
+            if (message.body) {
+                messageBody = message.body;
+                self.showTypingIndicator = NO;
+            }
+            
+            JSQMessage *jsqMessage = [self.messages objectAtIndex:indexPath.row];
+            [jsqMessage setText:messageBody];
+            
+            [self.messages replaceObjectAtIndex:indexPath.row withObject:jsqMessage];
+            [self.collectionView.collectionViewLayout invalidateLayoutWithContext:[JSQMessagesCollectionViewFlowLayoutInvalidationContext context]];
+            [self.collectionView reloadData];
+            
+            [self scrollToBottomAnimated:YES];
+        }
+        case NSFetchedResultsChangeDelete:{
+            if (indexPath.row <= [self.messages count]) {
+                
+                
+//                [self.collectionView.collectionViewLayout invalidateLayoutWithContext:[JSQMessagesCollectionViewFlowLayoutInvalidationContext context]];
+//                [self.collectionView reloadData];
+//                [self.collectionView performBatchUpdates:^{
+//                    [self.messages removeObjectAtIndex:indexPath.row - 1];
+//                    [self.collectionView deleteItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:indexPath.row inSection:0]]];
+//                } completion:^(BOOL finished) {
+//                    ;
+//                }];
+                
+                self.showTypingIndicator = NO;
+            }
             break;
         }
             
